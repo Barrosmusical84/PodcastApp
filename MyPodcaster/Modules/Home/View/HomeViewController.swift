@@ -3,19 +3,21 @@ import UIKit
 class HomeViewController: UIViewController {
     
     var items: [RSSItem] = []
+    lazy var detailView = DetailView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchRSSFeed()
+        self.view = detailView
+        showRSSFeed()
     }
     
-    func fetchRSSFeed() {
+    func showRSSFeed() {
         let manager = DataManager()
         manager.fetchRSSFeed(url: "https://feeds.megaphone.fm/la-cotorrisa")
         
         manager.completion = { items in
             self.items = items
-            print(items)
+//            print(items)
         }
     }
 }
