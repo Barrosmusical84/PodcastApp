@@ -44,7 +44,6 @@ class DataManager: NSObject, XMLParserDelegate {
                 currentLink = ""
                 currentPubDate = ""
 
-
             case "itunes:image":
                 if let urlString = attributeDict["href"] {
                     currentImageURL = urlString
