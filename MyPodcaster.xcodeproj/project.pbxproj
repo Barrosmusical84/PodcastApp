@@ -83,6 +83,7 @@
 		65FCF78D2CA7054E009EB880 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				65FCF7912CA70595009EB880 /* DetailView */,
 				65FCF78E2CA70558009EB880 /* Home */,
 				65FCF7972CA7063D009EB880 /* Shared Service */,
 			);
@@ -92,7 +93,6 @@
 		65FCF78E2CA70558009EB880 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				65FCF7912CA70595009EB880 /* DetailView */,
 				65FCF7902CA70582009EB880 /* View */,
 			);
 			path = Home;
