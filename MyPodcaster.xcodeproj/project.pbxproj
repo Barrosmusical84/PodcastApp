@@ -12,6 +12,8 @@
 		65FCF77D2CA7028D009EB880 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCF77C2CA7028D009EB880 /* HomeViewController.swift */; };
 		65FCF7822CA7028E009EB880 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65FCF7812CA7028E009EB880 /* Assets.xcassets */; };
 		65FCF7852CA7028E009EB880 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65FCF7832CA7028E009EB880 /* LaunchScreen.storyboard */; };
+		65FCF7942CA705BE009EB880 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCF7932CA705BD009EB880 /* DetailViewController.swift */; };
+		65FCF7962CA705E0009EB880 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCF7952CA705E0009EB880 /* DetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		65FCF7812CA7028E009EB880 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		65FCF7842CA7028E009EB880 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		65FCF7862CA7028E009EB880 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		65FCF7932CA705BD009EB880 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		65FCF7952CA705E0009EB880 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +58,64 @@
 		65FCF7772CA7028D009EB880 /* MyPodcaster */ = {
 			isa = PBXGroup;
 			children = (
-				65FCF7782CA7028D009EB880 /* AppDelegate.swift */,
-				65FCF77A2CA7028D009EB880 /* SceneDelegate.swift */,
-				65FCF77C2CA7028D009EB880 /* HomeViewController.swift */,
+				65FCF78D2CA7054E009EB880 /* Modules */,
+				65FCF78C2CA70541009EB880 /* AppDelegate */,
 				65FCF7812CA7028E009EB880 /* Assets.xcassets */,
 				65FCF7832CA7028E009EB880 /* LaunchScreen.storyboard */,
 				65FCF7862CA7028E009EB880 /* Info.plist */,
 			);
 			path = MyPodcaster;
+			sourceTree = "<group>";
+		};
+		65FCF78C2CA70541009EB880 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				65FCF7782CA7028D009EB880 /* AppDelegate.swift */,
+				65FCF77A2CA7028D009EB880 /* SceneDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		65FCF78D2CA7054E009EB880 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				65FCF7912CA70595009EB880 /* DetailView */,
+				65FCF78E2CA70558009EB880 /* Home */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		65FCF78E2CA70558009EB880 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				65FCF7902CA70582009EB880 /* View */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		65FCF7902CA70582009EB880 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				65FCF77C2CA7028D009EB880 /* HomeViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		65FCF7912CA70595009EB880 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				65FCF7922CA705A1009EB880 /* View */,
+			);
+			path = DetailView;
+			sourceTree = "<group>";
+		};
+		65FCF7922CA705A1009EB880 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				65FCF7932CA705BD009EB880 /* DetailViewController.swift */,
+				65FCF7952CA705E0009EB880 /* DetailView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,6 +191,8 @@
 				65FCF77D2CA7028D009EB880 /* HomeViewController.swift in Sources */,
 				65FCF7792CA7028D009EB880 /* AppDelegate.swift in Sources */,
 				65FCF77B2CA7028D009EB880 /* SceneDelegate.swift in Sources */,
+				65FCF7962CA705E0009EB880 /* DetailView.swift in Sources */,
+				65FCF7942CA705BE009EB880 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
