@@ -4,11 +4,14 @@ class DataManager: NSObject, XMLParserDelegate {
     var rssItems: [RSSItem] = []
     var currentElement = ""
     var currentTitle = ""
+    var currentItunesTitle = ""
+    var currentAuthor = ""
     var currentLink = ""
     var currentPubDate = ""
     var currentImageURL = ""
     var summary: String = ""
     var duration: Int?
+    var currentDescription = ""
 
     var completion: (([RSSItem]) -> ())?
 
@@ -39,9 +42,13 @@ class DataManager: NSObject, XMLParserDelegate {
         switch currentElement {
             case "item":
                 currentTitle = ""
+                currentItunesTitle = ""
+                currentAuthor = ""
                 currentLink = ""
                 currentPubDate = ""
-
+                summary = ""
+                currentDescription = ""
+  
             case "itunes:image":
                 if let urlString = attributeDict["href"] {
                     currentImageURL = urlString
@@ -56,6 +63,10 @@ class DataManager: NSObject, XMLParserDelegate {
         switch currentElement {
             case "title":
                 currentTitle += string
+            case "itunes:title":
+                currentItunesTitle += string
+            case "itunes:author":
+                currentAuthor += string
             case "link":
                 currentLink += string
             case "pubDate":
@@ -63,6 +74,8 @@ class DataManager: NSObject, XMLParserDelegate {
                 currentLink += string
             case "itunes:summary":
                 summary += string
+            case "description":
+                currentDescription += string
             case "itunes:duration":
                 if let duration = Int(string) {
                     self.duration = duration
@@ -77,6 +90,9 @@ class DataManager: NSObject, XMLParserDelegate {
         if elementName == "item" {
             let item = RSSItem(
                 title: currentTitle,
+                itunesTitle: currentItunesTitle,
+                author: currentAuthor,
+                description: currentDescription,
                 link: currentLink,
                 pubDate: currentPubDate,
                 imageURL: URL(string: currentImageURL),
@@ -94,6 +110,9 @@ class DataManager: NSObject, XMLParserDelegate {
 
 struct RSSItem {
     let title: String
+    let itunesTitle: String
+    let author: String
+    let description: String
     let link: String
     let pubDate: String
     var imageURL: URL?

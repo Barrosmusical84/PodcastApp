@@ -11,7 +11,7 @@ final class DetailView: UIView {
     private lazy var containerView: UIView = {
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.backgroundColor = .systemPink
+        containerView.backgroundColor = .systemFill
         return containerView
     }()
     
@@ -41,7 +41,7 @@ final class DetailView: UIView {
         let label = UILabel()
         label.lineBreakMode = .byTruncatingHead
         label.numberOfLines = 1
-        label.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
         label.textColor = .white
         label.textAlignment = .center
         return label
@@ -81,7 +81,7 @@ final class DetailView: UIView {
     }
     
     func configureView(_ items: RSSItem) {
-        titleLabel.text = items.pubDate
+        titleLabel.text = items.author
     }
     
     internal func setupImageView(_ item: RSSItem) {

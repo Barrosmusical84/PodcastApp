@@ -33,7 +33,7 @@ final class DetailViewCell: UITableViewCell {
     
     private lazy var descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
-        descriptionLabel.font = .systemFont(ofSize: 10)
+        descriptionLabel.font = .systemFont(ofSize: 11)
         descriptionLabel.textColor = .systemGray
         descriptionLabel.numberOfLines = .zero
         return descriptionLabel
@@ -41,13 +41,18 @@ final class DetailViewCell: UITableViewCell {
     
     private lazy var timerStackButton: UIButton = {
         let button = UIButton()
-        let image = UIImage(systemName: "arrowtriangle.right.fill")?.withConfiguration(UIImage.SymbolConfiguration(pointSize: 10))
-        button.setImage(image, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 10)
-        button.setTitleColor(.purple, for: .normal)
-        button.backgroundColor = .systemGray6
-        button.layer.cornerRadius = 8
-        button.tintColor = .purple
+        var config = UIButton.Configuration.plain()
+        config.image = UIImage(systemName: "arrowtriangle.right.fill")
+        config.imagePadding = 4
+        config.imagePlacement = .leading
+        config.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 10)
+        config.titlePadding = 12
+        
+        config.baseForegroundColor = .purple
+        config.background.backgroundColor = .systemGray6
+        config.background.cornerRadius = 8
+        config.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 6, bottom: 4, trailing: 6)
+        button.configuration = config
         return button
     }()
     
@@ -64,10 +69,32 @@ final class DetailViewCell: UITableViewCell {
         dateLabel.text = items.pubDate
         titleLabel.text = items.title
         descriptionLabel.text = items.summary ?? "No summary available"
+        setupButton(items: items)        
+    }
+    
+    private func setupButton(items: RSSItem) {
+        var config = timerStackButton.configuration ?? UIButton.Configuration.plain()
+        
         if let duration = items.duration {
-            timerStackButton.setTitle(" \(duration)m", for: .normal)
+            let formattedDuration = convertDurationToHoursAndMinutes(durationInSeconds: duration)
+            var attributedTitle = AttributedString("\(formattedDuration)")
+            attributedTitle.font = UIFont.boldSystemFont(ofSize: 10)
+            config.attributedTitle = attributedTitle
+            timerStackButton.configuration = config
         } else {
-            timerStackButton.setTitle(" N/A", for: .normal)
+            config.title = "N/A"
+            timerStackButton.configuration = config
+        }
+    }
+    
+    private func convertDurationToHoursAndMinutes(durationInSeconds: Int) -> String {
+        let hours = durationInSeconds / 3600
+        let minutes = (durationInSeconds % 3600) / 60
+        
+        if hours > 0 {
+            return "\(hours)h \(minutes)min"
+        } else {
+            return "\(minutes)m"
         }
     }
 }
@@ -84,12 +111,11 @@ extension DetailViewCell: ViewCode {
             detailStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -12),
             detailStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -12),
             
-            timerStackButton.widthAnchor.constraint(equalToConstant: 40),
-            timerStackButton.heightAnchor.constraint(equalToConstant: 16)
+            timerStackButton.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
     
     func setupAdditionalConfiguration() {
         self.backgroundColor = .clear
-    }    
+    }
 }
