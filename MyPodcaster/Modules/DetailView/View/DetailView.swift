@@ -94,6 +94,10 @@ final class DetailView: UIView {
         }
     }
     
+    private func registerCell() {
+        tableview.register(DetailViewCell.self, forCellReuseIdentifier: DetailViewCell.identifier)
+    }
+    
 }
 
 extension DetailView: ViewCode {
@@ -132,8 +136,7 @@ extension DetailView: ViewCode {
     func setupAdditionalConfiguration() {
         tableview.delegate = self
         tableview.dataSource = self
-        
-        
+        registerCell()
     }
 }
 
@@ -142,10 +145,12 @@ extension DetailView: UITableViewDelegate {
 
 extension DetailView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        4
+        1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: DetailViewCell.identifier, for: indexPath)
+        
+        return cell
     }
 }

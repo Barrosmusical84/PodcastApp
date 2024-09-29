@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65EF84402CA99A21002EFF27 /* DetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EF843F2CA99A21002EFF27 /* DetailViewCell.swift */; };
 		65FCF7792CA7028D009EB880 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCF7782CA7028D009EB880 /* AppDelegate.swift */; };
 		65FCF77B2CA7028D009EB880 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCF77A2CA7028D009EB880 /* SceneDelegate.swift */; };
 		65FCF77D2CA7028D009EB880 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCF77C2CA7028D009EB880 /* HomeViewController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		65EF843F2CA99A21002EFF27 /* DetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewCell.swift; sourceTree = "<group>"; };
 		65FCF7752CA7028D009EB880 /* MyPodcaster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyPodcaster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65FCF7782CA7028D009EB880 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65FCF77A2CA7028D009EB880 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +45,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		65EF843E2CA99A01002EFF27 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				65EF843F2CA99A21002EFF27 /* DetailViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		65FCF76C2CA7028D009EB880 = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +127,7 @@
 		65FCF7922CA705A1009EB880 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				65EF843E2CA99A01002EFF27 /* Cell */,
 				65FCF7932CA705BD009EB880 /* DetailViewController.swift */,
 				65FCF7952CA705E0009EB880 /* DetailView.swift */,
 			);
@@ -223,6 +234,7 @@
 				65FCF7792CA7028D009EB880 /* AppDelegate.swift in Sources */,
 				65FCF77B2CA7028D009EB880 /* SceneDelegate.swift in Sources */,
 				65FCF79D2CA70763009EB880 /* ViewCodeProtocol.swift in Sources */,
+				65EF84402CA99A21002EFF27 /* DetailViewCell.swift in Sources */,
 				65FCF7962CA705E0009EB880 /* DetailView.swift in Sources */,
 				65FCF7942CA705BE009EB880 /* DetailViewController.swift in Sources */,
 			);

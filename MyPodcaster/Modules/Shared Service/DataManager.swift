@@ -20,10 +20,8 @@ class DataManager: NSObject, XMLParserDelegate {
                 print("Error fetching data: \(String(describing: error))")
                 return
             }
-
             self.parseXML(data: data)
         }
-
         task.resume()
     }
 
