@@ -22,7 +22,7 @@ final class DetailView: UIView {
         headStackView.translatesAutoresizingMaskIntoConstraints = false
         headStackView.backgroundColor = .clear
         headStackView.axis = .vertical
-        headStackView.spacing = 8
+        headStackView.spacing = 12
         headStackView.alignment = .center
         headStackView.distribution = .fillProportionally
         return headStackView
@@ -104,6 +104,22 @@ final class DetailView: UIView {
     
 }
 
+extension DetailView: UITableViewDelegate {
+}
+
+extension DetailView: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: DetailViewCell.identifier, for: indexPath) as? DetailViewCell
+        let item = items[indexPath.row]
+        cell?.configure(items: item)
+        return cell ?? UITableViewCell()
+    }
+}
+
 extension DetailView: ViewCode {
     func buildViewHierarchy() {
         addSubview(containerView)
@@ -118,7 +134,7 @@ extension DetailView: ViewCode {
             containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
-            headStackView.topAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.topAnchor, constant: 24),
+            headStackView.topAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.topAnchor, constant: 8),
             headStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             headStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             headStackView.heightAnchor.constraint(equalToConstant: 300),
@@ -141,21 +157,5 @@ extension DetailView: ViewCode {
         tableview.delegate = self
         tableview.dataSource = self
         registerCell()
-    }
-}
-
-extension DetailView: UITableViewDelegate {
-}
-
-extension DetailView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DetailViewCell.identifier, for: indexPath) as? DetailViewCell
-        let item = items[indexPath.row]
-        cell?.configure(items: item)
-        return cell ?? UITableViewCell()
     }
 }
