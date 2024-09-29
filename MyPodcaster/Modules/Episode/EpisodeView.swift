@@ -1,18 +1,8 @@
 import UIKit
 
-protocol DetailViewProtocol: AnyObject {
-    func didTapEpisodeButton()
-}
-
-final class DetailView: UIView {
+final class EpisodeView: UIView {
     
-    weak var delegate: DetailViewProtocol?
-    
-    var items: [RSSItem] = [] {
-        didSet {
-            tableview.reloadData()
-        }
-    }
+    var items: [RSSItem] = []
     
     private lazy var containerView: UIView = {
         let containerView = UIView()
@@ -67,15 +57,9 @@ final class DetailView: UIView {
         return button
     }()
     
-    private lazy var tableview: UITableView = {
-        let tableview = UITableView()
-        tableview.translatesAutoresizingMaskIntoConstraints = false
-        return tableview
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupView()        
+        setupView()
     }
     
     required init?(coder: NSCoder) {
@@ -83,7 +67,6 @@ final class DetailView: UIView {
     }
     
     @objc func didTapEpisodeButton() {
-        delegate?.didTapEpisodeButton()
     }
     
     func configureView(_ items: RSSItem) {
@@ -103,33 +86,13 @@ final class DetailView: UIView {
             imageView.image = UIImage(named: "defaultImage")
         }
     }
+}
+
+extension EpisodeView: ViewCode {
     
-    private func registerCell() {
-        tableview.register(DetailViewCell.self, forCellReuseIdentifier: DetailViewCell.identifier)
-    }
-}
-
-extension DetailView: UITableViewDelegate {
-}
-
-extension DetailView: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DetailViewCell.identifier, for: indexPath) as? DetailViewCell
-        let item = items[indexPath.row]
-        cell?.configure(items: item)
-        return cell ?? UITableViewCell()
-    }
-}
-
-extension DetailView: ViewCode {
     func buildViewHierarchy() {
         addSubview(containerView)
         containerView.addSubview(headStackView)
-        containerView.addSubview(tableview)
     }
     
     func setupConstraint() {
@@ -148,19 +111,11 @@ extension DetailView: ViewCode {
             imageView.widthAnchor.constraint(equalToConstant: 160),
             
             lastestEpisodeButton.heightAnchor.constraint(equalToConstant: 40),
-            lastestEpisodeButton.widthAnchor.constraint(equalToConstant: 200),
-            
-            tableview.topAnchor.constraint(equalTo: headStackView.bottomAnchor,constant: 24),
-            tableview.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            tableview.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            tableview.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            lastestEpisodeButton.widthAnchor.constraint(equalToConstant: 200)
             
         ])
     }
     
     func setupAdditionalConfiguration() {
-        tableview.delegate = self
-        tableview.dataSource = self
-        registerCell()
     }
 }

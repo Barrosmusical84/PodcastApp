@@ -17,4 +17,10 @@ final class DetailViewController: UIViewController {
         detailView.configureView(item)
         detailView.setupImageView(item)
     }
+    
+    func didTapEpisodeButton(for item: RSSItem) {
+        let episodeViewController = EpisodeViewController()
+        episodeViewController.items = items
+        navigationController?.pushViewController(episodeViewController, animated: true)
+    }
 }
