@@ -5,22 +5,21 @@ final class DetailViewCell: UITableViewCell {
     
     private lazy var detailStackView: UIStackView = {
         let detailStackView = UIStackView(arrangedSubviews: [dateLabel,
-                                                            titleLabel,
+                                                             titleLabel,
                                                              descriptionLabel,
                                                              timerStackButton])
         detailStackView.translatesAutoresizingMaskIntoConstraints = false
         detailStackView.axis = .vertical
-        detailStackView.distribution = .equalSpacing
-        detailStackView.spacing = 8
+        detailStackView.distribution = .fillProportionally
+        detailStackView.spacing = 6
         detailStackView.alignment = .leading
         return detailStackView
     }()
     
     private lazy var dateLabel: UILabel = {
         let dateLabel = UILabel()
-        dateLabel.font = .systemFont(ofSize: 8)
+        dateLabel.font = .systemFont(ofSize: 10)
         dateLabel.textColor = .systemGray
-        dateLabel.text = "30 Jul"
         return dateLabel
     }()
     
@@ -28,7 +27,6 @@ final class DetailViewCell: UITableViewCell {
         let titleLabel = UILabel()
         titleLabel.font = .boldSystemFont(ofSize: 12)
         titleLabel.textColor = .black
-        titleLabel.text = "Akjnedkjfnejf jhsdb jwhebfiuwe jwhebfuwe jwehbfuhewbf jwebfhewbf ehfberfb jerhfbuehrbf"
         titleLabel.numberOfLines = .zero
         return titleLabel
     }()
@@ -37,7 +35,6 @@ final class DetailViewCell: UITableViewCell {
         let descriptionLabel = UILabel()
         descriptionLabel.font = .systemFont(ofSize: 10)
         descriptionLabel.textColor = .systemGray
-        descriptionLabel.text = "kgkfj jhsdb fgh ddd gggfd jwebfhewbf ehfberfb jerhfbuehrbfkgkfj jhsdb fgh ddd g"
         descriptionLabel.numberOfLines = .zero
         return descriptionLabel
     }()
@@ -48,7 +45,6 @@ final class DetailViewCell: UITableViewCell {
         button.setImage(image, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 10)
         button.setTitleColor(.purple, for: .normal)
-        button.setTitle(" 8m", for: .normal)
         button.backgroundColor = .systemGray6
         button.layer.cornerRadius = 8
         button.tintColor = .purple
@@ -64,8 +60,15 @@ final class DetailViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    internal func configure() {
-
+    internal func configure(items: RSSItem) {
+        dateLabel.text = items.pubDate
+        titleLabel.text = items.title
+        descriptionLabel.text = items.summary ?? "No summary available"
+        if let duration = items.duration {
+            timerStackButton.setTitle(" \(duration)m", for: .normal)
+        } else {
+            timerStackButton.setTitle(" N/A", for: .normal)
+        }
     }
 }
 
@@ -88,6 +91,5 @@ extension DetailViewCell: ViewCode {
     
     func setupAdditionalConfiguration() {
         self.backgroundColor = .clear
-    }
-    
+    }    
 }

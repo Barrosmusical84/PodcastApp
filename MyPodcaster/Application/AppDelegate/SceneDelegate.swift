@@ -1,23 +1,16 @@
-//
-//  SceneDelegate.swift
-//  MyPodcaster
-//
-//  Created by André Barros on 27/09/24.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        let viewController = HomeViewController()
-        window.rootViewController = viewController
+        let homeViewController = HomeViewController()
+        let navigationController = UINavigationController(rootViewController: homeViewController)
+        window.rootViewController = navigationController
         window.makeKeyAndVisible()
         self.window = window
     }
@@ -36,7 +29,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneDidEnterBackground(_ scene: UIScene) {
     }
-
-
 }
-

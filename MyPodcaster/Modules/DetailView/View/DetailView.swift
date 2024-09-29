@@ -2,7 +2,11 @@ import UIKit
 
 final class DetailView: UIView {
     
-    var items: [RSSItem] = []
+    var items: [RSSItem] = [] {
+        didSet {
+            tableview.reloadData()
+        }
+    }
     
     private lazy var containerView: UIView = {
         let containerView = UIView()
@@ -45,14 +49,15 @@ final class DetailView: UIView {
     
     private lazy var lastestEpisodeButton: UIButton = {
         let button = UIButton()
-        let image = UIImage(named: "arrowshape.right")
+        let image = UIImage(systemName: "arrowtriangle.right.fill")
         button.setImage(image, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.setTitleColor(.white, for: .normal)
-        button.setTitle("Último Episódio", for: .normal)
+        button.setTitle("  Último Episódio", for: .normal)
         button.backgroundColor = .black
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(didTapEpisodeButton), for: .touchUpInside)
+        button.tintColor = .white
         return button
     }()
     
@@ -64,8 +69,7 @@ final class DetailView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupView()
-        
+        setupView()        
     }
     
     required init?(coder: NSCoder) {
@@ -80,7 +84,7 @@ final class DetailView: UIView {
         titleLabel.text = items.pubDate
     }
     
-    private func setupImageView(_ item: RSSItem) {
+    internal func setupImageView(_ item: RSSItem) {
         if let imageURL = item.imageURL {
             DispatchQueue.global().async {
                 if let data = try? Data(contentsOf: imageURL), let image = UIImage(data: data) {
@@ -123,7 +127,7 @@ extension DetailView: ViewCode {
             imageView.widthAnchor.constraint(equalToConstant: 160),
             
             lastestEpisodeButton.heightAnchor.constraint(equalToConstant: 40),
-            lastestEpisodeButton.widthAnchor.constraint(equalToConstant: 240),
+            lastestEpisodeButton.widthAnchor.constraint(equalToConstant: 200),
             
             tableview.topAnchor.constraint(equalTo: headStackView.bottomAnchor,constant: 24),
             tableview.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
@@ -145,12 +149,13 @@ extension DetailView: UITableViewDelegate {
 
 extension DetailView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DetailViewCell.identifier, for: indexPath)
-        
-        return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: DetailViewCell.identifier, for: indexPath) as? DetailViewCell
+        let item = items[indexPath.row]
+        cell?.configure(items: item)
+        return cell ?? UITableViewCell()
     }
 }
