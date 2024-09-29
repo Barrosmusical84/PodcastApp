@@ -10,6 +10,7 @@ final class DetailViewController: UIViewController {
         self.view = detailView
         configureDetailView()
         detailView.items = [items].compactMap { $0 }
+        detailView.delegate = self
     }
     
     private func configureDetailView() {
@@ -17,10 +18,13 @@ final class DetailViewController: UIViewController {
         detailView.configureView(item)
         detailView.setupImageView(item)
     }
-    
-    func didTapEpisodeButton(for item: RSSItem) {
+}
+
+extension DetailViewController: DetailViewProtocol {
+    func didTapEpisodeButton() {
+        guard let item = items else { return }
         let episodeViewController = EpisodeViewController()
-        episodeViewController.items = items
+        episodeViewController.items = item
         navigationController?.pushViewController(episodeViewController, animated: true)
     }
 }

@@ -70,7 +70,7 @@ final class EpisodeView: UIView {
     }
     
     func configureView(_ items: RSSItem) {
-        titleLabel.text = items.author
+        titleLabel.text = items.itunesTitle
     }
     
     internal func setupImageView(_ item: RSSItem) {
