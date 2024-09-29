@@ -14,11 +14,11 @@ final class EpisodeView: UIView {
     private lazy var headStackView: UIStackView = {
         let headStackView = UIStackView(arrangedSubviews: [imageView,
                                                            titleLabel,
-                                                           lastestEpisodeButton])
+                                                           ])
         headStackView.translatesAutoresizingMaskIntoConstraints = false
         headStackView.backgroundColor = .clear
-        headStackView.axis = .vertical
-        headStackView.spacing = 12
+        headStackView.axis = .horizontal
+        headStackView.spacing = 8
         headStackView.alignment = .center
         headStackView.distribution = .fillProportionally
         return headStackView
@@ -37,9 +37,11 @@ final class EpisodeView: UIView {
         let label = UILabel()
         label.lineBreakMode = .byTruncatingHead
         label.numberOfLines = 1
+        UIImage(systemName: "arrowshape.right.circle.fill")
         label.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
         label.textColor = .white
         label.textAlignment = .center
+        label.numberOfLines = .zero
         return label
     }()
     
@@ -49,11 +51,12 @@ final class EpisodeView: UIView {
         button.setImage(image, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.setTitleColor(.white, for: .normal)
-        button.setTitle("  Último Episódio", for: .normal)
+        button.setTitle("   Play", for: .normal)
         button.backgroundColor = .black
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(didTapEpisodeButton), for: .touchUpInside)
         button.tintColor = .white
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -70,7 +73,7 @@ final class EpisodeView: UIView {
     }
     
     func configureView(_ items: RSSItem) {
-        titleLabel.text = items.itunesTitle
+        titleLabel.text = items.title
     }
     
     internal func setupImageView(_ item: RSSItem) {
@@ -93,6 +96,7 @@ extension EpisodeView: ViewCode {
     func buildViewHierarchy() {
         addSubview(containerView)
         containerView.addSubview(headStackView)
+        containerView.addSubview(lastestEpisodeButton)
     }
     
     func setupConstraint() {
@@ -102,20 +106,20 @@ extension EpisodeView: ViewCode {
             containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
-            headStackView.topAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.topAnchor, constant: 8),
-            headStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            headStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            headStackView.heightAnchor.constraint(equalToConstant: 300),
+            headStackView.topAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.topAnchor),
+            headStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            headStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor,constant: -16),
+            headStackView.heightAnchor.constraint(equalToConstant: 200),
             
-            imageView.heightAnchor.constraint(equalToConstant: 200),
-            imageView.widthAnchor.constraint(equalToConstant: 160),
+            imageView.heightAnchor.constraint(equalToConstant: 130),
+            imageView.widthAnchor.constraint(equalToConstant: 120),
             
+            lastestEpisodeButton.topAnchor.constraint(equalTo: headStackView.bottomAnchor),
+            lastestEpisodeButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             lastestEpisodeButton.heightAnchor.constraint(equalToConstant: 40),
             lastestEpisodeButton.widthAnchor.constraint(equalToConstant: 200)
-            
         ])
     }
     
-    func setupAdditionalConfiguration() {
-    }
+    func setupAdditionalConfiguration() {}
 }
