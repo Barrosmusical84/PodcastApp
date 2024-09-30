@@ -105,7 +105,7 @@ final class EpisodeView: UIView {
         stackView.axis = .horizontal
         stackView.spacing = .zero
         stackView.alignment = .center
-        stackView.distribution = .fill
+        stackView.distribution = .fillEqually
         return stackView
     }()
     
