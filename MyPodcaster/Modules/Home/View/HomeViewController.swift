@@ -12,16 +12,16 @@ class HomeViewController: UIViewController {
         self.view = homeView
         setupNavegation()
     }
-    
-    func setupNavegation() {
-        let rightButton = UIBarButtonItem(title: "Add URL", style: .plain, target: self, action: #selector(didTapRightButton))
-        navigationItem.rightBarButtonItem = rightButton
-    }
 
     func showDetail(for item: RSSItem) {
         let detailViewController = DetailViewController()
         detailViewController.items = item
         self.navigationController?.pushViewController(detailViewController, animated: true)
+    }
+    
+    func setupNavegation() {
+        let rightButton = UIBarButtonItem(title: "Add URL", style: .plain, target: self, action: #selector(didTapRightButton))
+        navigationItem.rightBarButtonItem = rightButton
     }
     
     @objc func didTapRightButton() {

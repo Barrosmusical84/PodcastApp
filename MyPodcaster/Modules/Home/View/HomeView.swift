@@ -12,7 +12,27 @@ final class HomeView: UIView {
         collection.dataSource = self
         collection.contentInsetAdjustmentBehavior = .never
         collection.translatesAutoresizingMaskIntoConstraints = false
+        
         return collection
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.textColor = .black
+        label.text = "Shows"
+        return label
+    }()
+    
+    private lazy var imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = .black
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 8
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     init() {
@@ -20,7 +40,11 @@ final class HomeView: UIView {
         setupView()
     //  uploadData()
     }
-
+    
+    func configure(podcast: PodcastModel) {
+        self.titleLabel.text = podcast.title
+    }
+    
     func show(podcasts: [PodcastModel]) {
         self.podcasts = podcasts
         self.collectionView.reloadData()
@@ -51,19 +75,29 @@ extension HomeView: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
-           return CGSize(width: width, height: 60)
+           return CGSize(width: width, height: 120)
     }
 }
 
 extension HomeView: ViewCode {
     func buildViewHierarchy() {
+        addSubview(titleLabel)
+        addSubview(imageView)
         addSubview(collectionView)
     }
     
     func setupConstraint() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+            titleLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
+            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            
+            imageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
+            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            imageView.heightAnchor.constraint(equalToConstant: 200),
+            imageView.widthAnchor.constraint(equalToConstant: 160),
+            
+            collectionView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 34),
+            collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
             collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])

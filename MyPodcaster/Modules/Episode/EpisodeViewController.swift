@@ -13,7 +13,6 @@ final class EpisodeViewController: UIViewController {
         self.view = episodeView
         configureEpisodeView()
         episodeView.delegate = self
-        
     }
     
     private func configureEpisodeView() {
