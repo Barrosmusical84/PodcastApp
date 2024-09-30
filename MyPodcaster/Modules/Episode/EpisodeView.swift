@@ -1,11 +1,17 @@
 import UIKit
-import AVFoundation
 
+
+protocol EpisodeViewProtocolDelegate: AnyObject {
+    func didTapPlayPauseButtonButton()
+    func setupPlayerAudio(item: RSSItem)
+}
 
 final class EpisodeView: UIView {
     
+    weak var delegate: EpisodeViewProtocolDelegate?
+    
     var items: [RSSItem] = []
-    private var player: AVPlayer?
+  
     
     private lazy var containerView: UIView = {
         let containerView = UIView()
@@ -27,7 +33,7 @@ final class EpisodeView: UIView {
         return headStackView
     }()
     
-    private lazy var imageView: UIImageView = {
+    internal lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .black
         imageView.contentMode = .scaleAspectFill
@@ -39,12 +45,33 @@ final class EpisodeView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.lineBreakMode = .byTruncatingHead
-        label.numberOfLines = 1
-        UIImage(systemName: "arrowshape.right.circle.fill")
         label.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
         label.textColor = .white
         label.textAlignment = .center
         label.numberOfLines = .zero
+        return label
+    }()
+    
+    private lazy var sliderStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [leftTimerLabel,
+                                                           sliderView,
+                                                       rightTimerLabel
+                                                          ])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.backgroundColor = .clear
+        stackView.axis = .horizontal
+        stackView.spacing = 8
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        return stackView
+    }()
+    
+    private lazy var leftTimerLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        label.textColor = .gray
+        label.textAlignment = .left
+        label.text = "0:00"
         return label
     }()
     
@@ -59,7 +86,16 @@ final class EpisodeView: UIView {
         return slider
     }()
     
-    private lazy var playPauseButton: UIButton = {
+    private lazy var rightTimerLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        label.textColor = .gray
+        label.textAlignment = .right
+        label.text = "0:00"
+        return label
+    }()
+    
+    internal lazy var playPauseButton: UIButton = {
         let button = UIButton()
         let image = UIImage(systemName: "play.fill")
         button.setImage(image, for: .normal)
@@ -83,8 +119,9 @@ final class EpisodeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureView(_ items: RSSItem) {
+    internal func configureView(_ items: RSSItem) {
         titleLabel.text = items.title
+        setupImageView(items)
     }
     
     internal func setupImageView(_ item: RSSItem) {
@@ -101,17 +138,12 @@ final class EpisodeView: UIView {
         }
     }
     
+    private func setupPlayerAudio(item: RSSItem) {
+        delegate?.setupPlayerAudio(item: item)
+    }
     
     @objc func didTapPlayPauseButtonButton() {
-        if  playPauseButton.title(for: .normal) != "   Play" {
-            let image = UIImage(systemName: "play.fill")
-            playPauseButton.setImage(image, for: .normal)
-            playPauseButton.setTitle("   Play", for: .normal)
-        } else {
-            let image = UIImage(systemName: "pause")
-            playPauseButton.setImage(image, for: .normal)
-            playPauseButton.setTitle("   Pause", for: .normal)
-        }
+        delegate?.didTapPlayPauseButtonButton()
     }
 }
 
@@ -120,7 +152,7 @@ extension EpisodeView: ViewCode {
     func buildViewHierarchy() {
         addSubview(containerView)
         containerView.addSubview(headStackView)
-        containerView.addSubview(sliderView)
+        containerView.addSubview(sliderStackView)
         containerView.addSubview(playPauseButton)
     }
     
@@ -139,12 +171,12 @@ extension EpisodeView: ViewCode {
             imageView.heightAnchor.constraint(equalToConstant: 130),
             imageView.widthAnchor.constraint(equalToConstant: 120),
             
-            sliderView.topAnchor.constraint(equalTo: headStackView.bottomAnchor),
-            sliderView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-            sliderView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor,constant: -16),
-            sliderView.widthAnchor.constraint(equalToConstant: 200),
+            sliderStackView.topAnchor.constraint(equalTo: headStackView.bottomAnchor),
+            sliderStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            sliderStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor,constant: -16),
+//            sliderStackView.widthAnchor.constraint(equalToConstant: 200),
             
-            playPauseButton.topAnchor.constraint(equalTo: sliderView.bottomAnchor, constant: 16),
+            playPauseButton.topAnchor.constraint(equalTo: sliderStackView.bottomAnchor, constant: 16),
             playPauseButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             playPauseButton.heightAnchor.constraint(equalToConstant: 40),
             playPauseButton.widthAnchor.constraint(equalToConstant: 200)
