@@ -1,8 +1,11 @@
 import UIKit
+import AVFoundation
+
 
 final class EpisodeView: UIView {
     
     var items: [RSSItem] = []
+    private var player: AVPlayer?
     
     private lazy var containerView: UIView = {
         let containerView = UIView()
@@ -80,9 +83,6 @@ final class EpisodeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func didTapEpisodeButton() {
-    }
-    
     func configureView(_ items: RSSItem) {
         titleLabel.text = items.title
     }
@@ -112,7 +112,7 @@ final class EpisodeView: UIView {
             playPauseButton.setImage(image, for: .normal)
             playPauseButton.setTitle("   Pause", for: .normal)
         }
-    }    
+    }
 }
 
 extension EpisodeView: ViewCode {
