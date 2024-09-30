@@ -48,6 +48,4 @@ extension HomeView: ViewCode {
     func setupAdditionalConfiguration() {
         self.backgroundColor = .white
     }
-    
-    
 }
