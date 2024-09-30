@@ -10,6 +10,8 @@ struct HomeViewModel {
     let podcasts: [PodcastModel]
 }
 
+
+
 class HomeViewController: UIViewController {
     
     var viewModel: HomeViewModel?
