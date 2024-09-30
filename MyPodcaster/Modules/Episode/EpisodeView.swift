@@ -174,8 +174,7 @@ extension EpisodeView: ViewCode {
             sliderStackView.topAnchor.constraint(equalTo: headStackView.bottomAnchor),
             sliderStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
             sliderStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor,constant: -16),
-//            sliderStackView.widthAnchor.constraint(equalToConstant: 200),
-            
+
             playPauseButton.topAnchor.constraint(equalTo: sliderStackView.bottomAnchor, constant: 16),
             playPauseButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             playPauseButton.heightAnchor.constraint(equalToConstant: 40),
