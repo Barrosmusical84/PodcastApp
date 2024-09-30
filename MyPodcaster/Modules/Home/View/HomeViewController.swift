@@ -13,11 +13,19 @@ struct HomeViewModel {
 class HomeViewController: UIViewController {
     
     var viewModel: HomeViewModel?
+    private lazy var homeView = HomeView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view = homeView
         viewModel = makeMock()
+        setupNavegation()
 //        uploadData()
+    }
+    
+    func setupNavegation() {
+        let rightButton = UIBarButtonItem(title: "Add URL", style: .plain, target: self, action: #selector(didTapRightButton))
+        navigationItem.rightBarButtonItem = rightButton
     }
     
     func makeMock() -> HomeViewModel {
@@ -46,6 +54,11 @@ class HomeViewController: UIViewController {
         detailViewController.items = item
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
+    
+    @objc func didTapRightButton() {
+        print("Botão com ícone foi pressionado!")
+    }
+    
 }
 
 
