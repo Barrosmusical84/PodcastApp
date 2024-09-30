@@ -1,46 +1,30 @@
 import UIKit
 
 struct PodcastModel {
-    let title: String
-    let image: URL?
-    let episodes: [RSSItem]
+    var title: String?
+    var image: String?
+    var description: String?
+    var episodes: [RSSItem] = []
 }
-
-struct HomeViewModel {
-    let podcasts: [PodcastModel]
-}
-
-
 
 class HomeViewController: UIViewController {
     
-    var viewModel: HomeViewModel?
+    private var viewModel: HomeViewModel
+
+    init(viewModel: HomeViewModel = HomeViewModel()) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = makeMock()
-//        uploadData()
-    }
-    
-    func makeMock() -> HomeViewModel {
-        let podCast1 = PodcastModel(title: "Claro Podcast", image: nil, episodes: [])
-        let podCast2 = PodcastModel(title: "Vivo Podcast", image: nil, episodes: [])
-        return .init(podcasts: [podCast1, podCast2])
-    }
-    
-    func showRSSFeed() {
-        let manager = DataManager()
-        manager.fetchRSSFeed(url: "https://feeds.megaphone.fm/la-cotorrisa")
-        
-        manager.completion = { [weak self] items in
-            guard let self = self else { return }
-//            self.items = items
-            DispatchQueue.main.async {
-//                if let firstItem = self.items.first {
-//                    self.showDetail(for: firstItem)
-//                }
-            }
-        }
+        viewModel.fetchPodcast(url: "https://anchor.fm/s/7a186bc/podcast/rss", completion: { model in
+            debugPrint(model)
+        })
     }
     
     func showDetail(for item: RSSItem) {
@@ -49,5 +33,39 @@ class HomeViewController: UIViewController {
         self.navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
+
+class HomeViewModel {
+
+    private var manager: NetworkManager
+
+    private var podcasts: [PodcastModel] = []
+
+    init(manager: NetworkManager = NetworkManager()) {
+        self.manager = manager
+    }
+
+    func fetchLocalPodcasts() -> [PodcastModel] {
+        return podcasts
+    }
+
+    func fetchPodcast(url: String, completion: @escaping([PodcastModel]) -> ()) {
+        guard let url = URL(string: url) else {
+            return
+        }
+
+        manager.fetchRSSFeed(url: url)
+        manager.completion = { [weak self] podcast in
+
+            guard let self = self else {
+                return
+            }
+            self.podcasts.append(podcast)
+            completion(self.podcasts)
+        }
+    }
+}
+
+
+
 
 

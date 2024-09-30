@@ -1,7 +1,13 @@
 import Foundation
 
-class DataManager: NSObject, XMLParserDelegate {
+class NetworkManager: NSObject, XMLParserDelegate {
+
     var rssItems: [RSSItem] = []
+    
+    var podcastTitle: String?
+    var podcastDescription: String?
+    var podcastImageURL: String?
+
     var currentElement = ""
     var currentTitle = ""
     var currentItunesTitle = ""
@@ -13,12 +19,13 @@ class DataManager: NSObject, XMLParserDelegate {
     var duration: Int?
     var currentDescription = ""
 
-    var completion: (([RSSItem]) -> ())?
+    var podcastModel = PodcastModel()
+    var isHeader: Bool = true
 
-    func fetchRSSFeed(url: String) {
-        guard let feedURL = URL(string: url) else { return }
+    var completion: ((PodcastModel) -> ())?
 
-        let task = URLSession.shared.dataTask(with: feedURL) { data, response, error in
+    func fetchRSSFeed(url: URL) {
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
                 print("Error fetching data: \(String(describing: error))")
                 return
@@ -41,6 +48,7 @@ class DataManager: NSObject, XMLParserDelegate {
 
         switch currentElement {
             case "item":
+                isHeader = false
                 currentTitle = ""
                 currentItunesTitle = ""
                 currentAuthor = ""
@@ -62,7 +70,11 @@ class DataManager: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         switch currentElement {
             case "title":
-                currentTitle += string
+                if isHeader, self.podcastTitle == nil {
+                    self.podcastTitle = string
+                } else {
+                    self.currentTitle = string
+                }
             case "itunes:title":
                 currentItunesTitle += string
             case "itunes:author":
@@ -75,12 +87,17 @@ class DataManager: NSObject, XMLParserDelegate {
             case "itunes:summary":
                 summary += string
             case "description":
-                currentDescription += string
+                if isHeader, self.podcastDescription == nil {
+                    self.podcastDescription = string
+                } else {
+                    currentDescription += string
+                }
             case "itunes:duration":
                 if let duration = Int(string) {
                     self.duration = duration
                 }
-
+            case "url":
+                self.podcastImageURL = string
             default:
                 break
         }
@@ -89,22 +106,29 @@ class DataManager: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
             let item = RSSItem(
-                title: currentTitle,
-                itunesTitle: currentItunesTitle,
+                title: "",
+                itunesTitle: "",
                 author: currentAuthor,
-                description: currentDescription,
-                link: currentLink,
+                description: "",
+                link: "",
                 pubDate: currentPubDate,
                 imageURL: URL(string: currentImageURL),
                 summary: nil,
                 duration: duration
             )
-            rssItems.append(item)
+            podcastModel.episodes.append(item)
+        } else if elementName == "title" {
+            podcastModel.title = podcastTitle
+        } else if elementName == "description" {
+            podcastModel.description = podcastDescription
+        } else if elementName == "url" {
+            podcastModel.image = podcastImageURL
         }
+
     }
 
     func parserDidEndDocument(_ parser: XMLParser) {
-        completion?(rssItems)
+        completion?(podcastModel)
     }
 }
 

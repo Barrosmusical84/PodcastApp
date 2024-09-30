@@ -18,7 +18,6 @@
 		65FCF7852CA7028E009EB880 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65FCF7832CA7028E009EB880 /* LaunchScreen.storyboard */; };
 		65FCF7942CA705BE009EB880 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCF7932CA705BD009EB880 /* DetailViewController.swift */; };
 		65FCF7962CA705E0009EB880 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCF7952CA705E0009EB880 /* DetailView.swift */; };
-		65FCF7992CA7065C009EB880 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCF7982CA7065C009EB880 /* DataManager.swift */; };
 		65FCF79D2CA70763009EB880 /* ViewCodeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCF79C2CA70763009EB880 /* ViewCodeProtocol.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +35,6 @@
 		65FCF7862CA7028E009EB880 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		65FCF7932CA705BD009EB880 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		65FCF7952CA705E0009EB880 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
-		65FCF7982CA7065C009EB880 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		65FCF79C2CA70763009EB880 /* ViewCodeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCodeProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -153,7 +151,6 @@
 		65FCF7972CA7063D009EB880 /* Shared Service */ = {
 			isa = PBXGroup;
 			children = (
-				65FCF7982CA7065C009EB880 /* DataManager.swift */,
 			);
 			path = "Shared Service";
 			sourceTree = "<group>";
@@ -248,7 +245,6 @@
 			files = (
 				65FCF77D2CA7028D009EB880 /* HomeViewController.swift in Sources */,
 				65EF84432CA9F055002EFF27 /* EpisodeViewController.swift in Sources */,
-				65FCF7992CA7065C009EB880 /* DataManager.swift in Sources */,
 				65FCF7792CA7028D009EB880 /* AppDelegate.swift in Sources */,
 				65EF84452CA9F096002EFF27 /* EpisodeView.swift in Sources */,
 				65FCF77B2CA7028D009EB880 /* SceneDelegate.swift in Sources */,
