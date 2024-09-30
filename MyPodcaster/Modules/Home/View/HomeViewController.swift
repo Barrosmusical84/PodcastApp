@@ -10,8 +10,6 @@ struct HomeViewModel {
     let podcasts: [PodcastModel]
 }
 
-
-
 class HomeViewController: UIViewController {
     
     var viewModel: HomeViewModel?
@@ -22,7 +20,6 @@ class HomeViewController: UIViewController {
         self.view = homeView
         viewModel = makeMock()
         setupNavegation()
-//        uploadData()
     }
     
     func setupNavegation() {
