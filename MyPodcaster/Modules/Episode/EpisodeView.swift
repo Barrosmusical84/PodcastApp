@@ -14,7 +14,7 @@ final class EpisodeView: UIView {
     private lazy var headStackView: UIStackView = {
         let headStackView = UIStackView(arrangedSubviews: [imageView,
                                                            titleLabel,
-                                                           ])
+                                                          ])
         headStackView.translatesAutoresizingMaskIntoConstraints = false
         headStackView.backgroundColor = .clear
         headStackView.axis = .horizontal
@@ -45,16 +45,27 @@ final class EpisodeView: UIView {
         return label
     }()
     
-    private lazy var lastestEpisodeButton: UIButton = {
+    private lazy var sliderView: UISlider = {
+        let slider = UISlider()
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.minimumValue = 0
+        slider.maximumValue = 100
+        slider.value = 0
+        slider.tintColor = .systemGray5
+        slider.layer.shadowOpacity = .greatestFiniteMagnitude
+        return slider
+    }()
+    
+    private lazy var playPauseButton: UIButton = {
         let button = UIButton()
-        let image = UIImage(systemName: "arrowtriangle.right.fill")
+        let image = UIImage(systemName: "play.fill")
         button.setImage(image, for: .normal)
+        button.setTitle("   Play", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.setTitleColor(.white, for: .normal)
-        button.setTitle("   Play", for: .normal)
         button.backgroundColor = .black
         button.layer.cornerRadius = 8
-        button.addTarget(self, action: #selector(didTapEpisodeButton), for: .touchUpInside)
+        button.addTarget(self, action: #selector(didTapPlayPauseButtonButton), for: .touchUpInside)
         button.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -89,6 +100,19 @@ final class EpisodeView: UIView {
             imageView.image = UIImage(named: "defaultImage")
         }
     }
+    
+    
+    @objc func didTapPlayPauseButtonButton() {
+        if  playPauseButton.title(for: .normal) != "   Play" {
+            let image = UIImage(systemName: "play.fill")
+            playPauseButton.setImage(image, for: .normal)
+            playPauseButton.setTitle("   Play", for: .normal)
+        } else {
+            let image = UIImage(systemName: "pause")
+            playPauseButton.setImage(image, for: .normal)
+            playPauseButton.setTitle("   Pause", for: .normal)
+        }
+    }    
 }
 
 extension EpisodeView: ViewCode {
@@ -96,7 +120,8 @@ extension EpisodeView: ViewCode {
     func buildViewHierarchy() {
         addSubview(containerView)
         containerView.addSubview(headStackView)
-        containerView.addSubview(lastestEpisodeButton)
+        containerView.addSubview(sliderView)
+        containerView.addSubview(playPauseButton)
     }
     
     func setupConstraint() {
@@ -114,10 +139,15 @@ extension EpisodeView: ViewCode {
             imageView.heightAnchor.constraint(equalToConstant: 130),
             imageView.widthAnchor.constraint(equalToConstant: 120),
             
-            lastestEpisodeButton.topAnchor.constraint(equalTo: headStackView.bottomAnchor),
-            lastestEpisodeButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-            lastestEpisodeButton.heightAnchor.constraint(equalToConstant: 40),
-            lastestEpisodeButton.widthAnchor.constraint(equalToConstant: 200)
+            sliderView.topAnchor.constraint(equalTo: headStackView.bottomAnchor),
+            sliderView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            sliderView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor,constant: -16),
+            sliderView.widthAnchor.constraint(equalToConstant: 200),
+            
+            playPauseButton.topAnchor.constraint(equalTo: sliderView.bottomAnchor, constant: 16),
+            playPauseButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            playPauseButton.heightAnchor.constraint(equalToConstant: 40),
+            playPauseButton.widthAnchor.constraint(equalToConstant: 200)
         ])
     }
     
