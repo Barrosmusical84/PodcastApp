@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65DF05052CAAF7DA007F9484 /* UIImage + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DF05042CAAF7DA007F9484 /* UIImage + Extension.swift */; };
 		65EF84402CA99A21002EFF27 /* DetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EF843F2CA99A21002EFF27 /* DetailViewCell.swift */; };
 		65EF84432CA9F055002EFF27 /* EpisodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EF84422CA9F055002EFF27 /* EpisodeViewController.swift */; };
 		65EF84452CA9F096002EFF27 /* EpisodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EF84442CA9F096002EFF27 /* EpisodeView.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		65DF05042CAAF7DA007F9484 /* UIImage + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Extension.swift"; sourceTree = "<group>"; };
 		65EF843F2CA99A21002EFF27 /* DetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewCell.swift; sourceTree = "<group>"; };
 		65EF84422CA9F055002EFF27 /* EpisodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewController.swift; sourceTree = "<group>"; };
 		65EF84442CA9F096002EFF27 /* EpisodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeView.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				65FCF79C2CA70763009EB880 /* ViewCodeProtocol.swift */,
+				65DF05042CAAF7DA007F9484 /* UIImage + Extension.swift */,
 			);
 			path = "Reusable Components";
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				65FCF79D2CA70763009EB880 /* ViewCodeProtocol.swift in Sources */,
 				65EF84402CA99A21002EFF27 /* DetailViewCell.swift in Sources */,
 				65FCF7962CA705E0009EB880 /* DetailView.swift in Sources */,
+				65DF05052CAAF7DA007F9484 /* UIImage + Extension.swift in Sources */,
 				65FCF7942CA705BE009EB880 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

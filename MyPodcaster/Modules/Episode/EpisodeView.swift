@@ -2,7 +2,7 @@ import UIKit
 
 
 protocol EpisodeViewProtocolDelegate: AnyObject {
-    func didTapPlayPauseButtonButton()
+    func didTapPlayPauseButton()
     func setupPlayerAudio(item: RSSItem)
 }
 
@@ -95,18 +95,51 @@ final class EpisodeView: UIView {
         return label
     }()
     
+    private lazy var buttonsStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [previousButton,
+                                                       playPauseButton,
+                                                       nextButton
+                                                          ])
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.backgroundColor = .clear
+        stackView.axis = .horizontal
+        stackView.spacing = .zero
+        stackView.alignment = .center
+        stackView.distribution = .fill
+        return stackView
+    }()
+    
+    internal lazy var previousButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: "arrowtriangle.left.fill")
+        button.setImage(image, for: .normal)
+        button.backgroundColor = .clear
+        button.contentHorizontalAlignment = .right
+//        button.addTarget(self, action: #selector(didTapPreviousButton), for: .touchUpInside)
+        button.tintColor = .gray
+        return button
+    }()
+    
     internal lazy var playPauseButton: UIButton = {
         let button = UIButton()
-        let image = UIImage(systemName: "play.fill")
+        let image = UIImage(systemName: "play.circle.fill")
         button.setImage(image, for: .normal)
-        button.setTitle("   Play", for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .black
-        button.layer.cornerRadius = 8
-        button.addTarget(self, action: #selector(didTapPlayPauseButtonButton), for: .touchUpInside)
+        button.backgroundColor = .clear
+        button.contentHorizontalAlignment = .center
+//        button.layer.cornerRadius = 8
+        button.addTarget(self, action: #selector(didTapPlayPauseButton), for: .touchUpInside)
         button.tintColor = .white
-        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    internal lazy var nextButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: "arrowtriangle.right.fill")
+        button.setImage(image, for: .normal)
+        button.backgroundColor = .clear
+        button.contentHorizontalAlignment = .left
+//        button.addTarget(self, action: #selector(didTapnextButton), for: .touchUpInside)
+        button.tintColor = .gray
         return button
     }()
     
@@ -142,8 +175,8 @@ final class EpisodeView: UIView {
         delegate?.setupPlayerAudio(item: item)
     }
     
-    @objc func didTapPlayPauseButtonButton() {
-        delegate?.didTapPlayPauseButtonButton()
+    @objc func didTapPlayPauseButton() {
+        delegate?.didTapPlayPauseButton()
     }
 }
 
@@ -153,7 +186,7 @@ extension EpisodeView: ViewCode {
         addSubview(containerView)
         containerView.addSubview(headStackView)
         containerView.addSubview(sliderStackView)
-        containerView.addSubview(playPauseButton)
+        containerView.addSubview(buttonsStackView)
     }
     
     func setupConstraint() {
@@ -175,12 +208,17 @@ extension EpisodeView: ViewCode {
             sliderStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
             sliderStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor,constant: -16),
 
-            playPauseButton.topAnchor.constraint(equalTo: sliderStackView.bottomAnchor, constant: 16),
-            playPauseButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+            buttonsStackView.topAnchor.constraint(equalTo: sliderStackView.bottomAnchor, constant: 8),
+            buttonsStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            buttonsStackView.heightAnchor.constraint(equalToConstant: 60),
+            buttonsStackView.widthAnchor.constraint(equalToConstant: 180),
+            
+            previousButton.heightAnchor.constraint(equalToConstant: 40),
             playPauseButton.heightAnchor.constraint(equalToConstant: 40),
-            playPauseButton.widthAnchor.constraint(equalToConstant: 200)
+            nextButton.heightAnchor.constraint(equalToConstant: 40),
         ])
     }
     
-    func setupAdditionalConfiguration() {}
+    func setupAdditionalConfiguration() {
+    }
 }

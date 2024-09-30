@@ -13,6 +13,7 @@ final class EpisodeViewController: UIViewController {
         self.view = episodeView
         configureEpisodeView()
         episodeView.delegate = self
+        
     }
     
     private func configureEpisodeView() {
@@ -27,7 +28,7 @@ extension EpisodeViewController: EpisodeViewProtocolDelegate {
         player = AVPlayer(url: url)
     }
     
-    func didTapPlayPauseButtonButton() {
+    func didTapPlayPauseButton() {
         if let player = player {
             if player.timeControlStatus == .playing {
                 player.pause()
