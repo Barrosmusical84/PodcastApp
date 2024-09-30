@@ -109,10 +109,7 @@ final class DetailView: UIView {
     }
 }
 
-extension DetailView: UITableViewDelegate {
-}
-
-extension DetailView: UITableViewDataSource {
+extension DetailView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }

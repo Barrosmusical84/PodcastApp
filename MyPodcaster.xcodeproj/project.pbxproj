@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		65DF05052CAAF7DA007F9484 /* UIImage + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DF05042CAAF7DA007F9484 /* UIImage + Extension.swift */; };
+		65DF05072CAB11CF007F9484 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DF05062CAB11CF007F9484 /* HomeView.swift */; };
+		65DF050A2CAB14EA007F9484 /* HomeEpisodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DF05092CAB14EA007F9484 /* HomeEpisodeCell.swift */; };
 		65EF84402CA99A21002EFF27 /* DetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EF843F2CA99A21002EFF27 /* DetailViewCell.swift */; };
 		65EF84432CA9F055002EFF27 /* EpisodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EF84422CA9F055002EFF27 /* EpisodeViewController.swift */; };
 		65EF84452CA9F096002EFF27 /* EpisodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EF84442CA9F096002EFF27 /* EpisodeView.swift */; };
@@ -19,10 +21,15 @@
 		65FCF7942CA705BE009EB880 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCF7932CA705BD009EB880 /* DetailViewController.swift */; };
 		65FCF7962CA705E0009EB880 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCF7952CA705E0009EB880 /* DetailView.swift */; };
 		65FCF79D2CA70763009EB880 /* ViewCodeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FCF79C2CA70763009EB880 /* ViewCodeProtocol.swift */; };
+		C76DA3E42CAB273400E57F5F /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76DA3E32CAB273400E57F5F /* NetworkManager.swift */; };
+		C76DA3E82CAB2A5700E57F5F /* PodcastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76DA3E72CAB2A5700E57F5F /* PodcastModel.swift */; };
+		C76DA3EA2CAB2A6E00E57F5F /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76DA3E92CAB2A6E00E57F5F /* HomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		65DF05042CAAF7DA007F9484 /* UIImage + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Extension.swift"; sourceTree = "<group>"; };
+		65DF05062CAB11CF007F9484 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		65DF05092CAB14EA007F9484 /* HomeEpisodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEpisodeCell.swift; sourceTree = "<group>"; };
 		65EF843F2CA99A21002EFF27 /* DetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewCell.swift; sourceTree = "<group>"; };
 		65EF84422CA9F055002EFF27 /* EpisodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewController.swift; sourceTree = "<group>"; };
 		65EF84442CA9F096002EFF27 /* EpisodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeView.swift; sourceTree = "<group>"; };
@@ -36,6 +43,9 @@
 		65FCF7932CA705BD009EB880 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		65FCF7952CA705E0009EB880 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		65FCF79C2CA70763009EB880 /* ViewCodeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCodeProtocol.swift; sourceTree = "<group>"; };
+		C76DA3E32CAB273400E57F5F /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		C76DA3E72CAB2A5700E57F5F /* PodcastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastModel.swift; sourceTree = "<group>"; };
+		C76DA3E92CAB2A6E00E57F5F /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +59,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		65DF05082CAB14C5007F9484 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				65DF05092CAB14EA007F9484 /* HomeEpisodeCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		65EF843E2CA99A01002EFF27 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +135,8 @@
 		65FCF78E2CA70558009EB880 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				C76DA3E62CAB2A4F00E57F5F /* Model */,
+				C76DA3E52CAB2A4A00E57F5F /* ViewModel */,
 				65FCF7902CA70582009EB880 /* View */,
 			);
 			path = Home;
@@ -125,7 +145,9 @@
 		65FCF7902CA70582009EB880 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				65DF05082CAB14C5007F9484 /* Cell */,
 				65FCF77C2CA7028D009EB880 /* HomeViewController.swift */,
+				65DF05062CAB11CF007F9484 /* HomeView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -151,6 +173,7 @@
 		65FCF7972CA7063D009EB880 /* Shared Service */ = {
 			isa = PBXGroup;
 			children = (
+				C76DA3E32CAB273400E57F5F /* NetworkManager.swift */,
 			);
 			path = "Shared Service";
 			sourceTree = "<group>";
@@ -171,6 +194,22 @@
 				65DF05042CAAF7DA007F9484 /* UIImage + Extension.swift */,
 			);
 			path = "Reusable Components";
+			sourceTree = "<group>";
+		};
+		C76DA3E52CAB2A4A00E57F5F /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C76DA3E92CAB2A6E00E57F5F /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		C76DA3E62CAB2A4F00E57F5F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C76DA3E72CAB2A5700E57F5F /* PodcastModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,16 +282,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C76DA3E82CAB2A5700E57F5F /* PodcastModel.swift in Sources */,
 				65FCF77D2CA7028D009EB880 /* HomeViewController.swift in Sources */,
 				65EF84432CA9F055002EFF27 /* EpisodeViewController.swift in Sources */,
 				65FCF7792CA7028D009EB880 /* AppDelegate.swift in Sources */,
+				C76DA3E42CAB273400E57F5F /* NetworkManager.swift in Sources */,
 				65EF84452CA9F096002EFF27 /* EpisodeView.swift in Sources */,
 				65FCF77B2CA7028D009EB880 /* SceneDelegate.swift in Sources */,
 				65FCF79D2CA70763009EB880 /* ViewCodeProtocol.swift in Sources */,
 				65EF84402CA99A21002EFF27 /* DetailViewCell.swift in Sources */,
 				65FCF7962CA705E0009EB880 /* DetailView.swift in Sources */,
+				65DF05072CAB11CF007F9484 /* HomeView.swift in Sources */,
 				65DF05052CAAF7DA007F9484 /* UIImage + Extension.swift in Sources */,
 				65FCF7942CA705BE009EB880 /* DetailViewController.swift in Sources */,
+				C76DA3EA2CAB2A6E00E57F5F /* HomeViewModel.swift in Sources */,
+				65DF050A2CAB14EA007F9484 /* HomeEpisodeCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
