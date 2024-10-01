@@ -24,10 +24,17 @@ final class HomeCell: UICollectionViewCell {
     private lazy var descriptionLabel: UILabel = {
         let dateLabel = UILabel()
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateLabel.font = UIFont.systemFont(ofSize: 10)
+        dateLabel.font = UIFont.systemFont(ofSize: 12)
         dateLabel.textColor = .white
-        dateLabel.numberOfLines = 0
+        dateLabel.numberOfLines = 4
         return dateLabel
+    }()
+    
+    private lazy var separatorView: UIView = {
+        let separatorView = UIView()
+        separatorView.translatesAutoresizingMaskIntoConstraints = false
+        separatorView.backgroundColor = .darkGray
+        return separatorView
     }()
     
     override init(frame: CGRect) {
@@ -56,6 +63,7 @@ extension HomeCell: ViewCode {
         addSubview(imageView)
         addSubview(titleLabel)
         addSubview(descriptionLabel)
+        addSubview(separatorView)
     }
     
     func setupConstraint() {
@@ -70,8 +78,12 @@ extension HomeCell: ViewCode {
             
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
             descriptionLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8),
-            descriptionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8)
-
+            descriptionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+            
+            separatorView.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -12),
+            separatorView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+            separatorView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+            separatorView.heightAnchor.constraint(equalToConstant: 1),
         ])
     }
     
