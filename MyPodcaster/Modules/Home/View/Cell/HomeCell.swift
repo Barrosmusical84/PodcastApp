@@ -16,7 +16,7 @@ final class HomeCell: UICollectionViewCell {
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
         titleLabel.textColor = .white
         return titleLabel
     }()
@@ -24,7 +24,7 @@ final class HomeCell: UICollectionViewCell {
     private lazy var descriptionLabel: UILabel = {
         let dateLabel = UILabel()
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateLabel.font = UIFont.systemFont(ofSize: 12)
+        dateLabel.font = UIFont.systemFont(ofSize: 14)
         dateLabel.textColor = .white
         dateLabel.numberOfLines = 4
         return dateLabel
@@ -48,7 +48,12 @@ final class HomeCell: UICollectionViewCell {
     
     func configure(podcast: PodcastModel) {
         titleLabel.text = podcast.title
-        descriptionLabel.text = podcast.description
+        
+        if let firstEpisode = podcast.episodes.first {
+               descriptionLabel.text = firstEpisode.pubDate
+           } else {
+               descriptionLabel.text = "No episodes available"
+           }
 
         if let imageUrl = podcast.image {
             ImageLoader.shared.loadImage(from: imageUrl) { [weak self] image in
@@ -68,10 +73,10 @@ extension HomeCell: ViewCode {
     
     func setupConstraint() {
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: self.topAnchor),
+            imageView.topAnchor.constraint(equalTo: self.topAnchor,constant: 4),
             imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            imageView.heightAnchor.constraint(equalToConstant: 60),
-            imageView.widthAnchor.constraint(equalToConstant: 60),
+            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -16),
+            imageView.widthAnchor.constraint(equalToConstant: 80),
             
             titleLabel.topAnchor.constraint(equalTo: imageView.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8),
@@ -80,7 +85,7 @@ extension HomeCell: ViewCode {
             descriptionLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8),
             descriptionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
             
-            separatorView.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -12),
+            separatorView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             separatorView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             separatorView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
             separatorView.heightAnchor.constraint(equalToConstant: 1),

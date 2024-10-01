@@ -35,7 +35,7 @@ final class DetailView: UIView {
         return headStackView
     }()
     
-    private lazy var imageView: UIImageView = {
+    internal lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFill
@@ -88,9 +88,19 @@ final class DetailView: UIView {
         delegate?.didTapEpisodeButton()
     }
     
-    func configureView(_ items: RSSItem) {
-        titleLabel.text = items.author
+    func configureView(_ podcast: PodcastModel) {
+        titleLabel.text = podcast.title
+    
+        if let imageUrl = podcast.image {
+            ImageLoader.shared.loadImage(from: imageUrl) { [weak self] image in
+                self?.imageView.image = image ?? UIImage(named: "defaultImage")
+            }
+        } else {
+            imageView.image = UIImage(named: "defaultImage")
+        }
+        self.items = podcast.episodes
     }
+
     
     internal func setupImageView(_ item: RSSItem) {
         if let imageURL = item.imageURL {

@@ -3,7 +3,7 @@ import UIKit
 final class DetailViewController: UIViewController {
     
     var podcast: PodcastModel?
-    var items: RSSItem?
+    var items: [RSSItem] = []
     
     private lazy var detailView = DetailView()
     
@@ -11,14 +11,18 @@ final class DetailViewController: UIViewController {
         super.viewDidLoad()
         self.view = detailView
         configureDetailView()
-        detailView.items = [items].compactMap { $0 }
+        detailView.items = items
         detailView.delegate = self
     }
     
     private func configureDetailView() {
-        guard let item = items else { return }
-        detailView.configureView(item)
-        detailView.setupImageView(item)
+        guard let podcast = podcast else { return }
+        detailView.configureView(podcast)
+        if let imageUrl = podcast.image {
+            ImageLoader.shared.loadImage(from: imageUrl) { [weak self] image in
+                self?.detailView.imageView.image = image ?? UIImage(named: "defaultImage")
+            }
+        }
     }
 }
 

@@ -25,7 +25,7 @@ final class HomeView: UIView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 24)
         label.textColor = .white
         label.text = "Shows"
         return label
@@ -87,7 +87,7 @@ extension HomeView: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
-        return CGSize(width: width, height: 120)
+        return CGSize(width: width, height: 90)
     }
 }
 
@@ -105,12 +105,13 @@ extension HomeView: ViewCode {
             
             imageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
             imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            imageView.heightAnchor.constraint(equalToConstant: 200),
-            imageView.widthAnchor.constraint(equalToConstant: 200),
+            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            imageView.heightAnchor.constraint(equalToConstant: 180),
+
             
-            collectionView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 34),
-            collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+            collectionView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 24),
+            collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
     }
