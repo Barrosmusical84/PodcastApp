@@ -8,6 +8,7 @@ final class DetailView: UIView {
     
     weak var delegate: DetailViewProtocol?
     
+    var podcasts: [PodcastModel] = []
     var items: [RSSItem] = [] {
         didSet {
             tableview.reloadData()
@@ -17,7 +18,7 @@ final class DetailView: UIView {
     private lazy var containerView: UIView = {
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = UIColor.customBackground
+        containerView.backgroundColor = UIColor.customBackground
         return containerView
     }()
     
@@ -70,6 +71,7 @@ final class DetailView: UIView {
     private lazy var tableview: UITableView = {
         let tableview = UITableView()
         tableview.translatesAutoresizingMaskIntoConstraints = false
+        tableview.backgroundColor = .clear
         return tableview
     }()
     
