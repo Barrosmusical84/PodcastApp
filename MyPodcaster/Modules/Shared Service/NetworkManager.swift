@@ -4,9 +4,9 @@ class NetworkManager: NSObject, XMLParserDelegate {
 
     var rssItems: [RSSItem] = []
     
-    var podcastTitle: String?
+    var podcastTitle = ""
     var podcastDescription: String?
-    var podcastImageURL: String?
+    var podcastImageURL = ""
 
     var currentElement = ""
     var currentTitle = ""
@@ -35,9 +35,27 @@ class NetworkManager: NSObject, XMLParserDelegate {
         task.resume()
     }
 
+    func prepareToParse() {
+        podcastModel = PodcastModel()
+        podcastTitle = ""
+        podcastDescription = nil
+        podcastImageURL = ""
+        currentElement = ""
+        currentTitle = ""
+        currentItunesTitle = ""
+        currentAuthor = ""
+        currentLink = ""
+        currentPubDate = ""
+        currentImageURL = ""
+        summary = ""
+        duration = nil
+        currentDescription = ""
+    }
+
     func parseXML(data: Data) {
         let parser = XMLParser(data: data)
         parser.delegate = self
+        prepareToParse()
         parser.parse()
     }
 
@@ -70,10 +88,10 @@ class NetworkManager: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         switch currentElement {
             case "title":
-                if isHeader, self.podcastTitle == nil {
-                    self.podcastTitle = string
+                if isHeader {
+                    self.podcastTitle += string
                 } else {
-                    self.currentTitle = string
+                    self.currentTitle += string
                 }
             case "itunes:title":
                 currentItunesTitle += string
@@ -97,7 +115,7 @@ class NetworkManager: NSObject, XMLParserDelegate {
                     self.duration = duration
                 }
             case "url":
-                self.podcastImageURL = string
+                self.podcastImageURL += string
             default:
                 break
         }
