@@ -1,10 +1,14 @@
 import UIKit
 
+protocol HomeViewDelegate: AnyObject {
+    func didSelectePodcast(podcast: PodcastModel)
+}
+
 final class HomeView: UIView {
 
     var podcasts: [PodcastModel] = []
-
     
+    weak var delegate: HomeViewDelegate?
     
     public lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -71,6 +75,11 @@ extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.identifier, for: indexPath) as? HomeCell
         cell?.configure(podcast: podcasts[indexPath.item])
         return cell ?? UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedPocast = podcasts[indexPath.item]
+        delegate?.didSelectePodcast(podcast: selectedPocast)
     }
 }
 

@@ -2,7 +2,9 @@ import UIKit
 
 final class DetailViewController: UIViewController {
     
+    var podcast: PodcastModel?
     var items: RSSItem?
+    
     private lazy var detailView = DetailView()
     
     override func viewDidLoad() {

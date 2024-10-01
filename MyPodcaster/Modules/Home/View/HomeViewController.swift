@@ -11,6 +11,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         self.view = homeView
         setupNavegation()
+        homeView.delegate = self
     }
 
     func showDetail(for item: RSSItem) {
@@ -46,5 +47,13 @@ class HomeViewController: UIViewController {
         viewModel.fetchPodcast(url: url, completion: { model in
             self.homeView.show(podcasts: model)
         })
+    }
+}
+
+extension HomeViewController: HomeViewDelegate {
+    func didSelectePodcast(podcast: PodcastModel) {
+        let detailViewController = DetailViewController()
+        detailViewController.podcast = podcast
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
