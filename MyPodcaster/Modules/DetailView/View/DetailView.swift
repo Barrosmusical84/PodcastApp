@@ -17,7 +17,7 @@ final class DetailView: UIView {
     private lazy var containerView: UIView = {
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.backgroundColor = .systemFill
+        backgroundColor = UIColor.customBackground
         return containerView
     }()
     

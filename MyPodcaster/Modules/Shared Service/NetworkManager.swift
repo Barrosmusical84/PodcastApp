@@ -124,7 +124,6 @@ class NetworkManager: NSObject, XMLParserDelegate {
         } else if elementName == "url" {
             podcastModel.image = podcastImageURL
         }
-
     }
 
     func parserDidEndDocument(_ parser: XMLParser) {

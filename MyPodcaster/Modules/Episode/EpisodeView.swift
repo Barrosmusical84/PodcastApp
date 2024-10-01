@@ -16,7 +16,7 @@ final class EpisodeView: UIView {
     private lazy var containerView: UIView = {
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.backgroundColor = .systemFill
+        containerView.backgroundColor = UIColor.customBackground
         return containerView
     }()
     

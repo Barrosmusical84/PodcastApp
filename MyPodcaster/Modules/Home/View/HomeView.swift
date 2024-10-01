@@ -4,6 +4,8 @@ final class HomeView: UIView {
 
     var podcasts: [PodcastModel] = []
 
+    
+    
     public lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
@@ -12,6 +14,7 @@ final class HomeView: UIView {
         collection.dataSource = self
         collection.contentInsetAdjustmentBehavior = .never
         collection.translatesAutoresizingMaskIntoConstraints = false
+        collection.backgroundColor = UIColor.customBackground
         return collection
     }()
     
@@ -97,7 +100,7 @@ extension HomeView: ViewCode {
             imageView.widthAnchor.constraint(equalToConstant: 200),
             
             collectionView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 34),
-            collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
+            collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
             collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
             collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
@@ -105,6 +108,6 @@ extension HomeView: ViewCode {
     
     func setupAdditionalConfiguration() {
         registerCell()
-        self.backgroundColor = .white
+        self.backgroundColor = UIColor.customBackground
     }
 }
