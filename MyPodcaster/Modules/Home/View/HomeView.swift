@@ -26,11 +26,12 @@ final class HomeView: UIView {
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .black
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "logo2")
+        imageView.alpha = .greatestFiniteMagnitude
         return imageView
     }()
     
@@ -93,7 +94,7 @@ extension HomeView: ViewCode {
             imageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
             imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             imageView.heightAnchor.constraint(equalToConstant: 200),
-            imageView.widthAnchor.constraint(equalToConstant: 160),
+            imageView.widthAnchor.constraint(equalToConstant: 200),
             
             collectionView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 34),
             collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
