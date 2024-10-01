@@ -11,6 +11,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         self.view = homeView
         setupNavegation()
+        homeView.delegate = self
     }
 
     func showDetail(for item: RSSItem) {
@@ -22,6 +23,7 @@ class HomeViewController: UIViewController {
     func setupNavegation() {
         let rightButton = UIBarButtonItem(title: "Add URL", style: .plain, target: self, action: #selector(didTapRightButton))
         navigationItem.rightBarButtonItem = rightButton
+        appearanceNavegation()
     }
     
     @objc func didTapRightButton() {
@@ -49,4 +51,22 @@ class HomeViewController: UIViewController {
     }
 }
 
+extension HomeViewController: HomeViewDelegate {
+    func didSelectePodcast(podcast: PodcastModel) {
+        let detailViewController = DetailViewController()
+        detailViewController.podcast = podcast
+        navigationController?.pushViewController(detailViewController, animated: true)
+    }
+}
 
+extension HomeViewController {
+    func appearanceNavegation() {
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = UIColor.customBackground
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.buttonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.tintColor = .white //
+    }
+}

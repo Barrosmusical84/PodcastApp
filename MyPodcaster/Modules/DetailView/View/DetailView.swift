@@ -8,6 +8,7 @@ final class DetailView: UIView {
     
     weak var delegate: DetailViewProtocol?
     
+    var podcasts: [PodcastModel] = []
     var items: [RSSItem] = [] {
         didSet {
             tableview.reloadData()
@@ -17,7 +18,7 @@ final class DetailView: UIView {
     private lazy var containerView: UIView = {
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.backgroundColor = .systemFill
+        containerView.backgroundColor = UIColor.customBackground
         return containerView
     }()
     
@@ -34,9 +35,9 @@ final class DetailView: UIView {
         return headStackView
     }()
     
-    private lazy var imageView: UIImageView = {
+    internal lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .black
+        imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
@@ -70,6 +71,7 @@ final class DetailView: UIView {
     private lazy var tableview: UITableView = {
         let tableview = UITableView()
         tableview.translatesAutoresizingMaskIntoConstraints = false
+        tableview.backgroundColor = .clear
         return tableview
     }()
     
@@ -86,9 +88,19 @@ final class DetailView: UIView {
         delegate?.didTapEpisodeButton()
     }
     
-    func configureView(_ items: RSSItem) {
-        titleLabel.text = items.author
+    func configureView(_ podcast: PodcastModel) {
+        titleLabel.text = podcast.title
+    
+        if let imageUrl = podcast.image {
+            ImageLoader.shared.loadImage(from: imageUrl) { [weak self] image in
+                self?.imageView.image = image ?? UIImage(named: "defaultImage")
+            }
+        } else {
+            imageView.image = UIImage(named: "defaultImage")
+        }
+        self.items = podcast.episodes
     }
+
     
     internal func setupImageView(_ item: RSSItem) {
         if let imageURL = item.imageURL {

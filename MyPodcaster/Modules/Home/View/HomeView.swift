@@ -1,9 +1,15 @@
 import UIKit
 
+protocol HomeViewDelegate: AnyObject {
+    func didSelectePodcast(podcast: PodcastModel)
+}
+
 final class HomeView: UIView {
 
     var podcasts: [PodcastModel] = []
-
+    
+    weak var delegate: HomeViewDelegate?
+    
     public lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
@@ -12,25 +18,27 @@ final class HomeView: UIView {
         collection.dataSource = self
         collection.contentInsetAdjustmentBehavior = .never
         collection.translatesAutoresizingMaskIntoConstraints = false
+        collection.backgroundColor = UIColor.customBackground
         return collection
     }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textColor = .black
+        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.textColor = .white
         label.text = "Shows"
         return label
     }()
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .black
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "logo2")
+        imageView.alpha = .greatestFiniteMagnitude
         return imageView
     }()
     
@@ -68,13 +76,18 @@ extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource {
         cell?.configure(podcast: podcasts[indexPath.item])
         return cell ?? UICollectionViewCell()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedPocast = podcasts[indexPath.item]
+        delegate?.didSelectePodcast(podcast: selectedPocast)
+    }
 }
 
 extension HomeView: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
-        return CGSize(width: width, height: 140)
+        return CGSize(width: width, height: 90)
     }
 }
 
@@ -92,18 +105,19 @@ extension HomeView: ViewCode {
             
             imageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
             imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            imageView.heightAnchor.constraint(equalToConstant: 200),
-            imageView.widthAnchor.constraint(equalToConstant: 160),
+            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            imageView.heightAnchor.constraint(equalToConstant: 180),
+
             
-            collectionView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 34),
+            collectionView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 24),
             collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
-            collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+            collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
         ])
     }
     
     func setupAdditionalConfiguration() {
         registerCell()
-        self.backgroundColor = .white
+        self.backgroundColor = UIColor.customBackground
     }
 }
