@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		654F28A22CAC1E8B008391DB /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654F28A12CAC1E8B008391DB /* ImageLoader.swift */; };
 		65DF05052CAAF7DA007F9484 /* UIImage + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DF05042CAAF7DA007F9484 /* UIImage + Extension.swift */; };
 		65DF05072CAB11CF007F9484 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DF05062CAB11CF007F9484 /* HomeView.swift */; };
 		65DF050A2CAB14EA007F9484 /* HomeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65DF05092CAB14EA007F9484 /* HomeCell.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		654F28A12CAC1E8B008391DB /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		65DF05042CAAF7DA007F9484 /* UIImage + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + Extension.swift"; sourceTree = "<group>"; };
 		65DF05062CAB11CF007F9484 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		65DF05092CAB14EA007F9484 /* HomeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCell.swift; sourceTree = "<group>"; };
@@ -174,6 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				C76DA3E32CAB273400E57F5F /* NetworkManager.swift */,
+				654F28A12CAC1E8B008391DB /* ImageLoader.swift */,
 			);
 			path = "Shared Service";
 			sourceTree = "<group>";
@@ -287,6 +290,7 @@
 				65EF84432CA9F055002EFF27 /* EpisodeViewController.swift in Sources */,
 				65FCF7792CA7028D009EB880 /* AppDelegate.swift in Sources */,
 				C76DA3E42CAB273400E57F5F /* NetworkManager.swift in Sources */,
+				654F28A22CAC1E8B008391DB /* ImageLoader.swift in Sources */,
 				65EF84452CA9F096002EFF27 /* EpisodeView.swift in Sources */,
 				65FCF77B2CA7028D009EB880 /* SceneDelegate.swift in Sources */,
 				65FCF79D2CA70763009EB880 /* ViewCodeProtocol.swift in Sources */,
