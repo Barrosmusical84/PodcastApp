@@ -12,7 +12,6 @@ final class EpisodeView: UIView {
     
     var items: [RSSItem] = []
   
-    
     private lazy var containerView: UIView = {
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -126,7 +125,6 @@ final class EpisodeView: UIView {
         button.setImage(image, for: .normal)
         button.backgroundColor = .clear
         button.contentHorizontalAlignment = .center
-//        button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(didTapPlayPauseButton), for: .touchUpInside)
         button.tintColor = .white
         return button
@@ -138,7 +136,7 @@ final class EpisodeView: UIView {
         button.setImage(image, for: .normal)
         button.backgroundColor = .clear
         button.contentHorizontalAlignment = .left
-//        button.addTarget(self, action: #selector(didTapnextButton), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(didTapNextButton), for: .touchUpInside)
         button.tintColor = .gray
         return button
     }()

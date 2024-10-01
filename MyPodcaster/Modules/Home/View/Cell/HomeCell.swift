@@ -17,7 +17,7 @@ final class HomeCell: UICollectionViewCell {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-        titleLabel.textColor = .black
+        titleLabel.textColor = .white
         return titleLabel
     }()
     
@@ -25,7 +25,7 @@ final class HomeCell: UICollectionViewCell {
         let dateLabel = UILabel()
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.font = UIFont.systemFont(ofSize: 10)
-        dateLabel.textColor = .black
+        dateLabel.textColor = .white
         dateLabel.numberOfLines = 0
         return dateLabel
     }()
@@ -76,5 +76,6 @@ extension HomeCell: ViewCode {
     }
     
     func setupAdditionalConfiguration() {
+        self.backgroundColor = UIColor.customBackground
     }
 }
