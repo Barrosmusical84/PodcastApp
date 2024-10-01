@@ -51,7 +51,7 @@ final class HomeView: UIView {
     }
 
     private func registerCell() {
-        collectionView.register(HomeEpisodeCell.self, forCellWithReuseIdentifier: HomeEpisodeCell.identifier)
+        collectionView.register(HomeCell.self, forCellWithReuseIdentifier: HomeCell.identifier)
     }
     
     required init?(coder: NSCoder) {
@@ -65,7 +65,7 @@ extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeEpisodeCell.identifier, for: indexPath) as? HomeEpisodeCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.identifier, for: indexPath) as? HomeCell
         cell?.configure(podcast: podcasts[indexPath.item])
         return cell ?? UICollectionViewCell()
     }

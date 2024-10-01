@@ -1,6 +1,6 @@
 import UIKit
 
-final class HomeEpisodeCell: UICollectionViewCell {
+final class HomeCell: UICollectionViewCell {
     
     static let identifier = "HomeEpisodeCell"
     
@@ -33,7 +33,7 @@ final class HomeEpisodeCell: UICollectionViewCell {
     }
 }
 
-extension HomeEpisodeCell: ViewCode {
+extension HomeCell: ViewCode {
     func buildViewHierarchy() {
         addSubview(imageView)
         addSubview(titleLabel)
