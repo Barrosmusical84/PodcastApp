@@ -24,7 +24,7 @@ final class DetailViewCell: UITableViewCell {
     
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.font = .boldSystemFont(ofSize: 18)
+        titleLabel.font = .boldSystemFont(ofSize: 16)
         titleLabel.textColor = .white
         titleLabel.numberOfLines = .zero
         return titleLabel
@@ -54,6 +54,8 @@ final class DetailViewCell: UITableViewCell {
         button.configuration = config
         return button
     }()
+    
+    private var separatorView: UIView?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -101,16 +103,17 @@ final class DetailViewCell: UITableViewCell {
 extension DetailViewCell: ViewCode {
     func buildViewHierarchy() {
         addSubview(detailStackView)
+        separatorView = addSeparatorView()
     }
     
     func setupConstraint() {
         NSLayoutConstraint.activate([
-            detailStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 4),
+            detailStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 12),
             detailStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 12),
             detailStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -12),
-            detailStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
+            detailStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -12),
             
-            timerStackButton.heightAnchor.constraint(equalToConstant: 20)
+            timerStackButton.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
     
