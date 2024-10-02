@@ -75,9 +75,12 @@ final class DetailView: UIView {
         return tableview
     }()
     
+    private var separatorView: UIView?
+    private var activityIndicator: UIActivityIndicatorView?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupView()        
+        setupView()
     }
     
     required init?(coder: NSCoder) {
@@ -88,38 +91,29 @@ final class DetailView: UIView {
         delegate?.didTapEpisodeButton()
     }
     
-    func configureView(_ podcast: PodcastModel) {
+    internal func configureView(_ podcast: PodcastModel) {
         titleLabel.text = podcast.title
-    
-        if let imageUrl = podcast.image {
-            ImageLoader.shared.loadImage(from: imageUrl) { [weak self] image in
-                self?.imageView.image = image ?? UIImage(named: "defaultImage")
-            }
-        } else {
-            imageView.image = UIImage(named: "defaultImage")
-        }
-        self.items = podcast.episodes
+        setupImageView(podcast)        
     }
 
-    
-    internal func setupImageView(_ item: RSSItem) {
-        if let imageURL = item.imageURL {
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: imageURL), let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self.imageView.image = image
-                    }
-                }
+    internal func setupImageView(_ podcast: PodcastModel) {
+        if let imageUrl = podcast.image {
+            activityIndicator?.startAnimating()
+            ImageLoader.shared.loadImage(from: imageUrl) { [weak self] image in
+                self?.activityIndicator?.stopAnimating()
+                self?.imageView.image = image 
             }
         } else {
             imageView.image = UIImage(named: "error-image")
         }
+        self.items = podcast.episodes
     }
     
     private func registerCell() {
         tableview.register(DetailViewCell.self, forCellReuseIdentifier: DetailViewCell.identifier)
     }
 }
+    
 
 extension DetailView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -143,6 +137,8 @@ extension DetailView: ViewCode {
         addSubview(containerView)
         containerView.addSubview(headStackView)
         containerView.addSubview(tableview)
+        
+        activityIndicator = self.addActivityIndicator(style: .medium, color: .white)
     }
     
     func setupConstraint() {
