@@ -2,7 +2,7 @@ import UIKit
 
 final class DetailViewController: UIViewController {
     
-    var podcast: PodcastModel
+    private var podcast: PodcastModel
 
     init(podcast: PodcastModel) {
         self.podcast = podcast

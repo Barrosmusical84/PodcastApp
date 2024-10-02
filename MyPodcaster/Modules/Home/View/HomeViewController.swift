@@ -63,7 +63,6 @@ extension HomeViewController: HomeViewDelegate {
 
     func didSelectePodcast(podcast: PodcastModel) {
         let detailViewController = DetailViewController(podcast: podcast)
-        detailViewController.podcast = podcast
         navigationController?.pushViewController(detailViewController, animated: true)
     }
 }
