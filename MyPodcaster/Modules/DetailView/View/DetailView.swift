@@ -2,14 +2,14 @@ import UIKit
 
 protocol DetailViewProtocol: AnyObject {
     func didTapEpisodeButton()
+    func didSelectEpisodeButton(selectedEpisode: EpisodeModel)
 }
 
 final class DetailView: UIView {
     
     weak var delegate: DetailViewProtocol?
     
-    var podcasts: [PodcastModel] = []
-    var items: [EpisodeModel] = [] {
+    var episodes: [EpisodeModel] = [] {
         didSet {
             tableview.reloadData()
         }
@@ -92,47 +92,48 @@ final class DetailView: UIView {
     }
     
     internal func configureView(podcast: PodcastModel) {
-        if let firstEpisode = podcast.episodes.first {
-                titleLabel.text = firstEpisode.author
-            } else {
-                titleLabel.text = "Autor não disponível" 
-            }
+        titleLabel.text = podcast.title
         setupImageView(podcast)
+        self.episodes = podcast.episodes
     }
-
-    internal func setupImageView(_ podcast: PodcastModel) {
+    
+    private func setupImageView(_ podcast: PodcastModel) {
         if let imageUrl = podcast.image {
             activityIndicator?.startAnimating()
             ImageLoader.shared.loadImage(from: imageUrl) { [weak self] image in
                 self?.activityIndicator?.stopAnimating()
-                self?.imageView.image = image 
+                self?.imageView.image = image
             }
         } else {
             imageView.image = UIImage(named: "error-image")
         }
-        self.items = podcast.episodes
     }
     
     private func registerCell() {
         tableview.register(DetailViewCell.self, forCellReuseIdentifier: DetailViewCell.identifier)
     }
 }
-    
 
 extension DetailView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return episodes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DetailViewCell.identifier, for: indexPath) as? DetailViewCell
-        let item = items[indexPath.row]
+        let item = episodes[indexPath.row]
         cell?.configure(items: item)
+        cell?.selectionStyle = .none
         return cell ?? UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedEpisode = episodes[indexPath.row]
+        delegate?.didSelectEpisodeButton(selectedEpisode: selectedEpisode)
     }
 }
 
@@ -141,7 +142,6 @@ extension DetailView: ViewCode {
         addSubview(containerView)
         containerView.addSubview(headStackView)
         containerView.addSubview(tableview)
-        
         activityIndicator = self.addActivityIndicator(style: .medium, color: .white)
     }
     

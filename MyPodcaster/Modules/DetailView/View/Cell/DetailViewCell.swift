@@ -9,7 +9,7 @@ final class DetailViewCell: UITableViewCell {
         detailStackView.translatesAutoresizingMaskIntoConstraints = false
         detailStackView.axis = .vertical
         detailStackView.distribution = .fillProportionally
-        detailStackView.spacing = 0
+        detailStackView.spacing = 2
         detailStackView.alignment = .leading
         return detailStackView
     }()

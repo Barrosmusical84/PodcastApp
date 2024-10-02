@@ -84,7 +84,7 @@ extension HomeViewController: HomeViewModelDelegate {
 
     func showServerError() {
         self.homeView.stopLoading()
-        //EXIBIR ALERTA COM MENSAGEM PARA O USUÁRIO
+        let alert = UIAlertController(title: "Erro no servidor", message: "Ocorreu um erro ao tentar exibir o podcast", preferredStyle: .alert)
     }
 
     func showErrorForInvalidURL() {
@@ -96,8 +96,7 @@ extension HomeViewController: HomeViewModelDelegate {
 extension HomeViewController: HomeViewDelegate {
 
     func didSelectePodcast(podcast: PodcastModel) {
-        let detailViewController = DetailViewController(podcast: podcast)
-        navigationController?.pushViewController(detailViewController, animated: true)
+        viewModel.didSelectPodcast(podcast)
     }
 }
 
