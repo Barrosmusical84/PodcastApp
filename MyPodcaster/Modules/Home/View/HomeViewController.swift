@@ -50,8 +50,11 @@ final class HomeViewController: UIViewController {
     }
 
     func processRSSFeed(_ url: String) {
-        viewModel.fetchPodcast(url: url, completion: { model in
+        homeView.startLoading()
+        viewModel.fetchPodcast(url: url, completion: { [weak self] model in
+            guard let self else { return }
             self.homeView.show(podcasts: model)
+            self.homeView.stopLoading()
         })
     }
 }

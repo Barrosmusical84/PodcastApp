@@ -5,4 +5,5 @@ struct PodcastModel {
     var image: String?
     var description: String?
     var episodes: [RSSItem] = []
+
 }

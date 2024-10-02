@@ -40,19 +40,31 @@ final class HomeView: UIView {
         imageView.alpha = .greatestFiniteMagnitude
         return imageView
     }()
-    
+
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.style = .large
+        activityIndicator.color = .white
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        return activityIndicator
+    }()
+
     init() {
         super.init(frame: .zero)
         setupView()
     }
     
-    func configure(podcast: PodcastModel) {
-        self.titleLabel.text = podcast.title
+    func show(podcasts: PodcastModel) {
+        self.podcasts.insert(podcasts, at: 0)
+        self.collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
     }
-    
-    func show(podcasts: [PodcastModel]) {
-        self.podcasts = podcasts
-        self.collectionView.reloadData()
+
+    func startLoading() {
+        self.activityIndicator.startAnimating()
+    }
+
+    func stopLoading() {
+        self.activityIndicator.stopAnimating()
     }
 
     private func registerCell() {
@@ -84,8 +96,16 @@ extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource {
 extension HomeView: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width
-        return CGSize(width: width, height: 90)
+        let width = collectionView.frame.width/2-16
+        return CGSize(width: width, height: width)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        16
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        16
     }
 }
 
@@ -94,6 +114,7 @@ extension HomeView: ViewCode {
         addSubview(titleLabel)
         addSubview(imageView)
         addSubview(collectionView)
+        addSubview(activityIndicator)
     }
     
     func setupConstraint() {
@@ -110,6 +131,9 @@ extension HomeView: ViewCode {
             collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             collectionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+
+            activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
         ])
     }
     
