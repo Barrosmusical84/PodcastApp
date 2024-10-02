@@ -5,8 +5,7 @@ final class DetailViewCell: UITableViewCell {
     private lazy var detailStackView: UIStackView = {
         let detailStackView = UIStackView(arrangedSubviews: [dateLabel,
                                                              titleLabel,
-                                                             descriptionLabel,
-                                                             timeGenderStackView])
+                                                             descriptionLabel])
         detailStackView.translatesAutoresizingMaskIntoConstraints = false
         detailStackView.axis = .vertical
         detailStackView.distribution = .fillProportionally
@@ -26,7 +25,7 @@ final class DetailViewCell: UITableViewCell {
         let titleLabel = UILabel()
         titleLabel.font = .boldSystemFont(ofSize: 16)
         titleLabel.textColor = .white
-        titleLabel.numberOfLines = .zero
+        titleLabel.numberOfLines = 2
         return titleLabel
     }()
     
@@ -34,8 +33,18 @@ final class DetailViewCell: UITableViewCell {
         let descriptionLabel = UILabel()
         descriptionLabel.font = .systemFont(ofSize: 12)
         descriptionLabel.textColor = .white
-        descriptionLabel.numberOfLines = .zero
+        descriptionLabel.numberOfLines = 3
         return descriptionLabel
+    }()
+    
+    private lazy var timeGenderStackView: UIStackView = {
+        let timeGenderStackView = UIStackView(arrangedSubviews: [timerButton, genterLabel])
+        timeGenderStackView.translatesAutoresizingMaskIntoConstraints = false
+        timeGenderStackView.axis = .horizontal
+        timeGenderStackView.distribution = .fillProportionally
+        timeGenderStackView.backgroundColor = .clear
+        timeGenderStackView.alignment = .fill
+        return timeGenderStackView
     }()
     
     private lazy var timerButton: UIButton = {
@@ -49,19 +58,19 @@ final class DetailViewCell: UITableViewCell {
         config.baseForegroundColor = .purple
         config.background.backgroundColor = .systemGray6
         config.background.cornerRadius = 8
-        config.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 6, bottom: 4, trailing: 6)
+        config.contentInsets = NSDirectionalEdgeInsets(top: 2, leading: 4, bottom: 2, trailing: 4)
         button.configuration = config
         return button
     }()
     
-    private lazy var timeGenderStackView: UIStackView = {
-        let timeGenderStackView = UIStackView(arrangedSubviews: [timerButton])
-        timeGenderStackView.translatesAutoresizingMaskIntoConstraints = false
-        timeGenderStackView.axis = .horizontal
-        timeGenderStackView.distribution = .fillProportionally
-        timeGenderStackView.spacing = 2
-        timeGenderStackView.alignment = .leading
-        return timeGenderStackView
+    private lazy var genterLabel: UILabel = {
+        let genterLabel = UILabel()
+        genterLabel.font = .systemFont(ofSize: 14)
+        genterLabel.textColor = .white
+        genterLabel.numberOfLines = 1
+        genterLabel.text = "Comédia"
+        genterLabel.textAlignment = .right
+        return genterLabel
     }()
     
     private var separatorView: UIView?
@@ -112,6 +121,7 @@ final class DetailViewCell: UITableViewCell {
 extension DetailViewCell: ViewCode {
     func buildViewHierarchy() {
         addSubview(detailStackView)
+        addSubview(timeGenderStackView)
         separatorView = addSeparatorView()
     }
     
@@ -120,9 +130,14 @@ extension DetailViewCell: ViewCode {
             detailStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 12),
             detailStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 12),
             detailStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -12),
-            detailStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -12),
             
-            timerButton.heightAnchor.constraint(equalToConstant: 20),
+            timeGenderStackView.topAnchor.constraint(equalTo: detailStackView.bottomAnchor, constant: 4),
+            timeGenderStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 12),
+            timeGenderStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
+            timeGenderStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -12),
+            timeGenderStackView.heightAnchor.constraint(equalToConstant: 20),
+            
+            timerButton.widthAnchor.constraint(equalToConstant: 78),
         ])
     }
     
