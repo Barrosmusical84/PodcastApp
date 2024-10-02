@@ -2,7 +2,7 @@ import UIKit
 import AVFoundation
 
 final class EpisodeViewController: UIViewController {
-    
+   
     var items: EpisodeModel?
     private var player: AVPlayer?
     

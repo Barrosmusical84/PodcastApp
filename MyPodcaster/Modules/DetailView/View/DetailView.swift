@@ -2,6 +2,7 @@ import UIKit
 
 protocol DetailViewProtocol: AnyObject {
     func didTapEpisodeButton()
+    func didSelectEpisodeButton()
 }
 
 final class DetailView: UIView {
@@ -92,20 +93,16 @@ final class DetailView: UIView {
     }
     
     internal func configureView(podcast: PodcastModel) {
-        if let firstEpisode = podcast.episodes.first {
-                titleLabel.text = firstEpisode.author
-            } else {
-                titleLabel.text = "Autor não disponível" 
-            }
+        titleLabel.text = podcast.title
         setupImageView(podcast)
     }
-
+    
     internal func setupImageView(_ podcast: PodcastModel) {
         if let imageUrl = podcast.image {
             activityIndicator?.startAnimating()
             ImageLoader.shared.loadImage(from: imageUrl) { [weak self] image in
                 self?.activityIndicator?.stopAnimating()
-                self?.imageView.image = image 
+                self?.imageView.image = image
             }
         } else {
             imageView.image = UIImage(named: "error-image")
@@ -117,7 +114,6 @@ final class DetailView: UIView {
         tableview.register(DetailViewCell.self, forCellReuseIdentifier: DetailViewCell.identifier)
     }
 }
-    
 
 extension DetailView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -128,11 +124,16 @@ extension DetailView: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: DetailViewCell.identifier, for: indexPath) as? DetailViewCell
         let item = items[indexPath.row]
         cell?.configure(items: item)
+        cell?.selectionStyle = .none
         return cell ?? UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.didSelectEpisodeButton()
     }
 }
 
@@ -141,7 +142,6 @@ extension DetailView: ViewCode {
         addSubview(containerView)
         containerView.addSubview(headStackView)
         containerView.addSubview(tableview)
-        
         activityIndicator = self.addActivityIndicator(style: .medium, color: .white)
     }
     

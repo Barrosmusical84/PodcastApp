@@ -46,6 +46,13 @@ final class DetailViewController: UIViewController {
 }
 
 extension DetailViewController: DetailViewProtocol {
+    func didSelectEpisodeButton() {
+        guard let item = podcast.episodes.first else { return }
+        let epispdeView = EpisodeViewController()
+        epispdeView.items = item
+        navigationController?.pushViewController(epispdeView, animated: true)
+    }
+    
     func didTapEpisodeButton() {
         guard let item = podcast.episodes.first else { return }
         let episodeViewController = EpisodeViewController()

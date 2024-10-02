@@ -73,6 +73,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		657B4AEA2CADDECA001AE0CD /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				C738FEE82CADB2DC00C87A3C /* HomeViewControllerFactory.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
 		65DF05082CAB14C5007F9484 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -153,7 +161,7 @@
 				C76DA3E62CAB2A4F00E57F5F /* Model */,
 				C76DA3E52CAB2A4A00E57F5F /* ViewModel */,
 				65FCF7902CA70582009EB880 /* View */,
-				C738FEE82CADB2DC00C87A3C /* HomeViewControllerFactory.swift */,
+				657B4AEA2CADDECA001AE0CD /* Factory */,
 			);
 			path = Home;
 			sourceTree = "<group>";
