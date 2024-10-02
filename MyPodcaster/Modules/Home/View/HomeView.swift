@@ -57,7 +57,7 @@ final class HomeView: UIView {
     func show(podcast: PodcastModel) {
         if let index = self.podcasts.firstIndex(where: { $0.url == podcast.url }) {
             self.podcasts[index] = podcast
-            self.collectionView.reloadData()// reloadItems(at: [IndexPath(item: index, section: 0)])
+            self.collectionView.reloadData()
         } else {
             self.podcasts.insert(podcast, at: 0)
             self.collectionView.insertItems(at: [IndexPath(item: 0, section: 0)])
