@@ -6,7 +6,7 @@ final class DetailViewCell: UITableViewCell {
         let detailStackView = UIStackView(arrangedSubviews: [dateLabel,
                                                              titleLabel,
                                                              descriptionLabel,
-                                                             timerStackButton])
+                                                             timeGenderStackView])
         detailStackView.translatesAutoresizingMaskIntoConstraints = false
         detailStackView.axis = .vertical
         detailStackView.distribution = .fillProportionally
@@ -38,7 +38,7 @@ final class DetailViewCell: UITableViewCell {
         return descriptionLabel
     }()
     
-    private lazy var timerStackButton: UIButton = {
+    private lazy var timerButton: UIButton = {
         let button = UIButton()
         var config = UIButton.Configuration.plain()
         config.image = UIImage(systemName: "arrowtriangle.right.fill")
@@ -46,13 +46,22 @@ final class DetailViewCell: UITableViewCell {
         config.imagePlacement = .leading
         config.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(pointSize: 10)
         config.titlePadding = 12
-        
         config.baseForegroundColor = .purple
         config.background.backgroundColor = .systemGray6
         config.background.cornerRadius = 8
         config.contentInsets = NSDirectionalEdgeInsets(top: 4, leading: 6, bottom: 4, trailing: 6)
         button.configuration = config
         return button
+    }()
+    
+    private lazy var timeGenderStackView: UIStackView = {
+        let timeGenderStackView = UIStackView(arrangedSubviews: [timerButton])
+        timeGenderStackView.translatesAutoresizingMaskIntoConstraints = false
+        timeGenderStackView.axis = .horizontal
+        timeGenderStackView.distribution = .fillProportionally
+        timeGenderStackView.spacing = 2
+        timeGenderStackView.alignment = .leading
+        return timeGenderStackView
     }()
     
     private var separatorView: UIView?
@@ -74,17 +83,17 @@ final class DetailViewCell: UITableViewCell {
     }
     
     private func setupButton(items: EpisodeModel) {
-        var config = timerStackButton.configuration ?? UIButton.Configuration.plain()
+        var config = timerButton.configuration ?? UIButton.Configuration.plain()
         
         if let duration = items.duration {
             let formattedDuration = convertDurationToHoursAndMinutes(durationInSeconds: duration)
             var attributedTitle = AttributedString("\(formattedDuration)")
             attributedTitle.font = UIFont.boldSystemFont(ofSize: 10)
             config.attributedTitle = attributedTitle
-            timerStackButton.configuration = config
+            timerButton.configuration = config
         } else {
             config.title = "N/A"
-            timerStackButton.configuration = config
+            timerButton.configuration = config
         }
     }
     
@@ -113,7 +122,7 @@ extension DetailViewCell: ViewCode {
             detailStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -12),
             detailStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -12),
             
-            timerStackButton.heightAnchor.constraint(equalToConstant: 20),
+            timerButton.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
     
