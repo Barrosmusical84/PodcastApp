@@ -37,4 +37,8 @@ extension UIView {
         let activityIndicator = subviews.first(where: { $0 is UIActivityIndicatorView }) as? UIActivityIndicatorView
         activityIndicator?.removeFromSuperview()
     }
+
+    static var identifier: String {
+        String(describing: Self.self)
+    }
 }

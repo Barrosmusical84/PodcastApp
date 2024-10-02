@@ -3,15 +3,15 @@ import UIKit
 
 protocol EpisodeViewProtocolDelegate: AnyObject {
     func didTapPlayPauseButton()
-    func setupPlayerAudio(item: RSSItem)
+    func setupPlayerAudio(item: EpisodeModel)
 }
 
 final class EpisodeView: UIView {
     
     weak var delegate: EpisodeViewProtocolDelegate?
     
-    var items: [RSSItem] = []
-  
+    var items: [EpisodeModel] = []
+
     private lazy var containerView: UIView = {
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -150,12 +150,12 @@ final class EpisodeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    internal func configureView(_ items: RSSItem) {
+    internal func configureView(_ items: EpisodeModel) {
         titleLabel.text = items.title
         setupImageView(items)
     }
     
-    internal func setupImageView(_ item: RSSItem) {
+    internal func setupImageView(_ item: EpisodeModel) {
         if let imageURL = item.imageURL {
             DispatchQueue.global().async {
                 if let data = try? Data(contentsOf: imageURL), let image = UIImage(data: data) {
@@ -169,7 +169,7 @@ final class EpisodeView: UIView {
         }
     }
     
-    private func setupPlayerAudio(item: RSSItem) {
+    private func setupPlayerAudio(item: EpisodeModel) {
         delegate?.setupPlayerAudio(item: item)
     }
     

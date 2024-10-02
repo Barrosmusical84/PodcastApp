@@ -9,7 +9,7 @@ final class DetailView: UIView {
     weak var delegate: DetailViewProtocol?
     
     var podcasts: [PodcastModel] = []
-    var items: [RSSItem] = [] {
+    var items: [EpisodeModel] = [] {
         didSet {
             tableview.reloadData()
         }

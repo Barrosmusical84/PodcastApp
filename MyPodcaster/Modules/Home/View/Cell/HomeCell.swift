@@ -1,9 +1,7 @@
 import UIKit
 
 final class HomeCell: UICollectionViewCell {
-    
-    static let identifier = "HomeEpisodeCell"
-    
+        
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -22,15 +20,6 @@ final class HomeCell: UICollectionViewCell {
         titleLabel.lineBreakMode = .byTruncatingTail
         titleLabel.textAlignment = .center
         return titleLabel
-    }()
-    
-    private lazy var descriptionLabel: UILabel = {
-        let dateLabel = UILabel()
-        dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        dateLabel.font = UIFont.systemFont(ofSize: 14)
-        dateLabel.textColor = .white
-        dateLabel.numberOfLines = 0
-        return dateLabel
     }()
     
     private lazy var activityIndicator: UIActivityIndicatorView = {
@@ -52,12 +41,6 @@ final class HomeCell: UICollectionViewCell {
     
     func configureCell(podcast: PodcastModel) {
         titleLabel.text = podcast.title
-        
-        if let firstEpisode = podcast.episodes.first {
-            descriptionLabel.text = firstEpisode.pubDate
-        } else {
-            descriptionLabel.text = "No episodes available"
-        }
 
         if let imageUrl = podcast.image {
             self.imageView.alpha = 0
@@ -83,7 +66,6 @@ extension HomeCell: ViewCode {
     func buildViewHierarchy() {
         addSubview(imageView)
         addSubview(titleLabel)
-        addSubview(descriptionLabel)
         addSubview(activityIndicator)
     }
     
@@ -97,10 +79,6 @@ extension HomeCell: ViewCode {
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 0),
             titleLabel.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 0),
-
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
-            descriptionLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8),
-            descriptionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
 
             activityIndicator.centerXAnchor.constraint(equalTo: imageView.centerXAnchor),
             activityIndicator.centerYAnchor.constraint(equalTo: imageView.centerYAnchor)

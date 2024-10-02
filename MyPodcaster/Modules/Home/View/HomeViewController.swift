@@ -2,9 +2,13 @@ import UIKit
 
 final class HomeViewController: UIViewController {
 
-    var viewModel = HomeViewModel()
+    private let viewModel: HomeViewModel
 
-    private lazy var homeView = HomeView()
+    private lazy var homeView: HomeView = {
+        let homeView = HomeView()
+        homeView.delegate = self
+        return homeView
+    }()
 
     var urls = [
         "https://feeds.megaphone.fm/la-cotorrisa",
@@ -14,11 +18,23 @@ final class HomeViewController: UIViewController {
 
     var index = 0
 
+    init(viewModel: HomeViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func loadView() {
+        self.view = homeView
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view = homeView
         setupNavegation()
-        homeView.delegate = self
+        viewModel.fetchStoredPodcasts()
     }
     
     func setupNavegation() {
@@ -29,7 +45,7 @@ final class HomeViewController: UIViewController {
     
     @objc func didTapRightButton() {
         let url = urls[index]
-        self.processRSSFeed(url)
+        self.fetch(url: url)
         index = index + 1
         return
         let alert = UIAlertController(title: "Insira a URL", message: nil, preferredStyle: .alert)
@@ -41,7 +57,7 @@ final class HomeViewController: UIViewController {
         let followAction = UIAlertAction(title: "Seguir", style: .default) { [weak alert] _ in
             if let urlText = alert?.textFields?.first?.text, !urlText.isEmpty {
                 print("URL inserida: \(urlText)")
-                self.processRSSFeed(urlText)
+                self.fetch(url: urlText)
             }
         }
         alert.addAction(cancelAction)
@@ -49,13 +65,31 @@ final class HomeViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
 
-    func processRSSFeed(_ url: String) {
+    func fetch(url: String) {
         homeView.startLoading()
-        viewModel.fetchPodcast(url: url, completion: { [weak self] model in
-            guard let self else { return }
-            self.homeView.show(podcasts: model)
-            self.homeView.stopLoading()
-        })
+        viewModel.fetchPodcast(url: url)
+    }
+}
+
+extension HomeViewController: HomeViewModelDelegate {
+    
+    func showStoredPodcasts(podcast: [PodcastModel]) {
+        self.homeView.showPodcastList(podcasts: podcast)
+    }
+
+    func show(podcast: PodcastModel) {
+        self.homeView.stopLoading()
+        self.homeView.show(podcast: podcast)
+    }
+
+    func showServerError() {
+        self.homeView.stopLoading()
+        //EXIBIR ALERTA COM MENSAGEM PARA O USUÁRIO
+    }
+
+    func showErrorForInvalidURL() {
+        self.homeView.stopLoading()
+        //EXIBIR ALERTA COM MENSAGEM PARA O USUÁRIO
     }
 }
 
@@ -68,6 +102,7 @@ extension HomeViewController: HomeViewDelegate {
 }
 
 extension HomeViewController {
+
     func appearanceNavegation() {
         let appearance = UINavigationBarAppearance()
         appearance.backgroundColor = UIColor.customBackground

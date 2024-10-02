@@ -1,7 +1,6 @@
 import UIKit
 
 final class DetailViewCell: UITableViewCell {
-    static let identifier = "DetailViewCell"
     
     private lazy var detailStackView: UIStackView = {
         let detailStackView = UIStackView(arrangedSubviews: [dateLabel,
@@ -65,14 +64,14 @@ final class DetailViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    internal func configure(items: RSSItem) {
+    internal func configure(items: EpisodeModel) {
         dateLabel.text = items.pubDate
         titleLabel.text = items.title
         descriptionLabel.text = items.summary ?? "No summary available"
         setupButton(items: items)        
     }
     
-    private func setupButton(items: RSSItem) {
+    private func setupButton(items: EpisodeModel) {
         var config = timerStackButton.configuration ?? UIButton.Configuration.plain()
         
         if let duration = items.duration {

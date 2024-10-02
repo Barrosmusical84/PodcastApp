@@ -1,13 +1,11 @@
 import Foundation
 
-class NetworkManager: NSObject, XMLParserDelegate {
+final class PodcastMapper: NSObject {
 
-    var rssItems: [RSSItem] = []
-    
+    var rssItems: [EpisodeModel] = []
     var podcastTitle = ""
     var podcastDescription: String?
     var podcastImageURL = ""
-
     var currentElement = ""
     var currentTitle = ""
     var currentItunesTitle = ""
@@ -21,46 +19,20 @@ class NetworkManager: NSObject, XMLParserDelegate {
 
     var podcastModel = PodcastModel()
     var isHeader: Bool = true
+    var podcastURL: String = ""
 
-    var completion: ((PodcastModel) -> ())?
+    var completion: ((PodcastModel) ->())?
 
-    func fetchRSSFeed(url: URL) {
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else {
-                print("Error fetching data: \(String(describing: error))")
-                return
-            }
-            self.parseXML(data: data)
-        }
-        task.resume()
-    }
-
-    func prepareToParse() {
-        podcastModel = PodcastModel()
-        podcastTitle = ""
-        podcastDescription = nil
-        podcastImageURL = ""
-        currentElement = ""
-        currentTitle = ""
-        currentItunesTitle = ""
-        currentAuthor = ""
-        currentLink = ""
-        currentPubDate = ""
-        currentImageURL = ""
-        summary = ""
-        duration = nil
-        currentDescription = ""
-        isHeader = true
-    }
-
-    func parseXML(data: Data) {
+    func parseXML(data: Data, url: String) {
+        podcastModel.url = url
         let parser = XMLParser(data: data)
         parser.delegate = self
-        prepareToParse()
         parser.parse()
     }
+}
 
-    // XMLParserDelegate methods
+extension PodcastMapper: XMLParserDelegate {
+
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
 
         currentElement = elementName
@@ -75,7 +47,7 @@ class NetworkManager: NSObject, XMLParserDelegate {
                 currentPubDate = ""
                 summary = ""
                 currentDescription = ""
-  
+
             case "itunes:image":
                 if let urlString = attributeDict["href"] {
                     currentImageURL = urlString
@@ -102,7 +74,6 @@ class NetworkManager: NSObject, XMLParserDelegate {
                 currentLink += string
             case "pubDate":
                 currentPubDate += string
-                currentLink += string
             case "itunes:summary":
                 summary += string
             case "description":
@@ -124,18 +95,18 @@ class NetworkManager: NSObject, XMLParserDelegate {
 
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
-            let item = RSSItem(
-                title: "",
+            let item = EpisodeModel(
+                title: currentTitle,
                 itunesTitle: "",
                 author: currentAuthor,
                 description: "",
-                link: "",
+                link: currentLink,
                 pubDate: currentPubDate,
                 imageURL: URL(string: currentImageURL),
-                summary: nil,
+                summary: summary,
                 duration: duration
             )
-            podcastModel.episodes.append(item)
+            //podcastModel.episodes.append(item)
         } else if elementName == "title" {
             podcastModel.title = podcastTitle
         } else if elementName == "description" {
@@ -148,16 +119,4 @@ class NetworkManager: NSObject, XMLParserDelegate {
     func parserDidEndDocument(_ parser: XMLParser) {
         completion?(podcastModel)
     }
-}
-
-struct RSSItem {
-    let title: String
-    let itunesTitle: String
-    let author: String
-    let description: String
-    let link: String
-    let pubDate: String
-    var imageURL: URL?
-    var summary: String?
-    var duration: Int?
 }

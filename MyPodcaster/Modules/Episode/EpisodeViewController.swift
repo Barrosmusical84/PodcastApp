@@ -3,7 +3,7 @@ import AVFoundation
 
 final class EpisodeViewController: UIViewController {
     
-    var items: RSSItem?
+    var items: EpisodeModel?
     private var player: AVPlayer?
     
     private lazy var episodeView = EpisodeView()
@@ -22,7 +22,7 @@ final class EpisodeViewController: UIViewController {
 }
 
 extension EpisodeViewController: EpisodeViewProtocolDelegate {
-    func setupPlayerAudio(item: RSSItem) {
+    func setupPlayerAudio(item: EpisodeModel) {
         guard let url = URL(string: item.link) else { return }
         player = AVPlayer(url: url)
     }
