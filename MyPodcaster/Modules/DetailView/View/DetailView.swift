@@ -132,6 +132,10 @@ extension DetailView: UITableViewDataSource, UITableViewDelegate {
         cell?.configure(items: item)
         return cell ?? UITableViewCell()
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 150
+    }
 }
 
 extension DetailView: ViewCode {
@@ -151,10 +155,10 @@ extension DetailView: ViewCode {
             headStackView.topAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.topAnchor, constant: 8),
             headStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             headStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            headStackView.heightAnchor.constraint(equalToConstant: 300),
+            headStackView.heightAnchor.constraint(equalToConstant: 260),
             
             imageView.heightAnchor.constraint(equalToConstant: 200),
-            imageView.widthAnchor.constraint(equalToConstant: 160),
+            imageView.widthAnchor.constraint(equalToConstant: 200),
             
             lastestEpisodeButton.heightAnchor.constraint(equalToConstant: 40),
             lastestEpisodeButton.widthAnchor.constraint(equalToConstant: 200),

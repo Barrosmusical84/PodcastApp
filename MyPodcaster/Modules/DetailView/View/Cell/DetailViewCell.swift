@@ -11,30 +11,30 @@ final class DetailViewCell: UITableViewCell {
         detailStackView.translatesAutoresizingMaskIntoConstraints = false
         detailStackView.axis = .vertical
         detailStackView.distribution = .fillProportionally
-        detailStackView.spacing = 6
+        detailStackView.spacing = 0
         detailStackView.alignment = .leading
         return detailStackView
     }()
     
     private lazy var dateLabel: UILabel = {
         let dateLabel = UILabel()
-        dateLabel.font = .systemFont(ofSize: 10)
-        dateLabel.textColor = .systemGray
+        dateLabel.font = .systemFont(ofSize: 14)
+        dateLabel.textColor = .white
         return dateLabel
     }()
     
     private lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.font = .boldSystemFont(ofSize: 12)
-        titleLabel.textColor = .black
+        titleLabel.font = .boldSystemFont(ofSize: 18)
+        titleLabel.textColor = .white
         titleLabel.numberOfLines = .zero
         return titleLabel
     }()
     
     private lazy var descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
-        descriptionLabel.font = .systemFont(ofSize: 11)
-        descriptionLabel.textColor = .systemGray
+        descriptionLabel.font = .systemFont(ofSize: 12)
+        descriptionLabel.textColor = .white
         descriptionLabel.numberOfLines = .zero
         return descriptionLabel
     }()
@@ -106,10 +106,10 @@ extension DetailViewCell: ViewCode {
     
     func setupConstraint() {
         NSLayoutConstraint.activate([
-            detailStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8),
+            detailStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 4),
             detailStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 12),
             detailStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -12),
-            detailStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -12),
+            detailStackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
             
             timerStackButton.heightAnchor.constraint(equalToConstant: 20)
         ])
