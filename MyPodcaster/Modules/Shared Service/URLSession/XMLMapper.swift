@@ -53,6 +53,10 @@ extension PodcastMapper: XMLParserDelegate {
                     currentImageURL = urlString
                 }
 
+            case "enclosure":
+                if let urlString = attributeDict["url"] {
+                    currentLink = urlString
+                }
             default:
                 break
         }
