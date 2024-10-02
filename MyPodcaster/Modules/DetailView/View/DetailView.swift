@@ -2,15 +2,14 @@ import UIKit
 
 protocol DetailViewProtocol: AnyObject {
     func didTapEpisodeButton()
-    func didSelectEpisodeButton()
+    func didSelectEpisodeButton(selectedEpisode: EpisodeModel)
 }
 
 final class DetailView: UIView {
     
     weak var delegate: DetailViewProtocol?
     
-    var podcasts: [PodcastModel] = []
-    var items: [EpisodeModel] = [] {
+    var episodes: [EpisodeModel] = [] {
         didSet {
             tableview.reloadData()
         }
@@ -95,9 +94,10 @@ final class DetailView: UIView {
     internal func configureView(podcast: PodcastModel) {
         titleLabel.text = podcast.title
         setupImageView(podcast)
+        self.episodes = podcast.episodes
     }
     
-    internal func setupImageView(_ podcast: PodcastModel) {
+    private func setupImageView(_ podcast: PodcastModel) {
         if let imageUrl = podcast.image {
             activityIndicator?.startAnimating()
             ImageLoader.shared.loadImage(from: imageUrl) { [weak self] image in
@@ -107,7 +107,6 @@ final class DetailView: UIView {
         } else {
             imageView.image = UIImage(named: "error-image")
         }
-        self.items = podcast.episodes
     }
     
     private func registerCell() {
@@ -117,12 +116,12 @@ final class DetailView: UIView {
 
 extension DetailView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return episodes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: DetailViewCell.identifier, for: indexPath) as? DetailViewCell
-        let item = items[indexPath.row]
+        let item = episodes[indexPath.row]
         cell?.configure(items: item)
         cell?.selectionStyle = .none
         return cell ?? UITableViewCell()
@@ -133,7 +132,8 @@ extension DetailView: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate?.didSelectEpisodeButton()
+        let selectedEpisode = episodes[indexPath.row]
+        delegate?.didSelectEpisodeButton(selectedEpisode: selectedEpisode)
     }
 }
 

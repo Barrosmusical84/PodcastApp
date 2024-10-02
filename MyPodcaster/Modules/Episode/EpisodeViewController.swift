@@ -3,7 +3,17 @@ import AVFoundation
 
 final class EpisodeViewController: UIViewController {
    
-    var items: EpisodeModel?
+    private let episode: EpisodeModel
+    
+    init(episode: EpisodeModel) {
+        self.episode = episode
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private var player: AVPlayer?
     
     private lazy var episodeView = EpisodeView()
@@ -16,8 +26,7 @@ final class EpisodeViewController: UIViewController {
     }
     
     private func configureEpisodeView() {
-        guard let item = items else { return }
-        episodeView.configureView(item)
+        episodeView.configureView(episode)
     }
 }
 

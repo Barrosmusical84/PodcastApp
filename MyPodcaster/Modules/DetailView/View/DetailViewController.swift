@@ -1,11 +1,34 @@
 import UIKit
 
-final class DetailViewController: UIViewController {
-    
-    private var podcast: PodcastModel
+protocol DetailViewModelProtocol {
+   func fetchPodcast() -> PodcastModel
+}
 
-    init(podcast: PodcastModel) {
+final class DetailViewModel: DetailViewModelProtocol {
+    private let podcast: PodcastModel
+    private let coordinator: DetailCoordinator
+    
+    init(podcast: PodcastModel, coordinator: DetailCoordinator) {
         self.podcast = podcast
+        self.coordinator = coordinator
+    }
+    
+    func fetchPodcast() -> PodcastModel {
+        return podcast
+    }
+    
+    func didSelectEpisode(_ episode: EpisodeModel) {
+        coordinator.openEpisode(episode)
+    }
+}
+
+
+final class DetailViewController: UIViewController {
+
+    private let viewModel: DetailViewModelProtocol
+    
+    init(viewModel: DetailViewModelProtocol) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -25,19 +48,12 @@ final class DetailViewController: UIViewController {
         self.view = detailView
         setupView()
         configureDetailView()
-        detailView.items = podcast.episodes
-        detailView.delegate = self
     }
     
     private func configureDetailView() {
+        detailView.delegate = self
+        let podcast = viewModel.fetchPodcast()
         detailView.configureView(podcast: podcast)
-        if let imageUrl = podcast.image {
-            activityIndicator.startAnimating()
-            ImageLoader.shared.loadImage(from: imageUrl) { [weak self] image in
-                self?.detailView.imageView.image = image
-                self?.activityIndicator.stopAnimating() 
-            }
-        }
     }
     
     required init?(coder: NSCoder) {
@@ -46,17 +62,15 @@ final class DetailViewController: UIViewController {
 }
 
 extension DetailViewController: DetailViewProtocol {
-    func didSelectEpisodeButton() {
-        guard let item = podcast.episodes.first else { return }
-        let epispdeView = EpisodeViewController()
-        epispdeView.items = item
-        navigationController?.pushViewController(epispdeView, animated: true)
+    func didSelectEpisodeButton(selectedEpisode: EpisodeModel) {
+        let episodeViewController = EpisodeViewController(episode: selectedEpisode)
+        navigationController?.pushViewController(episodeViewController, animated: true)
     }
     
     func didTapEpisodeButton() {
+        let podcast = viewModel.fetchPodcast()
         guard let item = podcast.episodes.first else { return }
-        let episodeViewController = EpisodeViewController()
-        episodeViewController.items = item
+        let episodeViewController = EpisodeViewController(episode: item)
         navigationController?.pushViewController(episodeViewController, animated: true)
     }
 }
