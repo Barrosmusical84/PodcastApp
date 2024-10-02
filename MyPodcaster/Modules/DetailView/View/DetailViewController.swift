@@ -2,8 +2,16 @@ import UIKit
 
 final class DetailViewController: UIViewController {
     
-    var podcast: PodcastModel?
-    var items: [RSSItem] = []
+    var podcast: PodcastModel
+
+    init(podcast: PodcastModel) {
+        self.podcast = podcast
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private lazy var detailView = DetailView()
     
@@ -11,12 +19,11 @@ final class DetailViewController: UIViewController {
         super.viewDidLoad()
         self.view = detailView
         configureDetailView()
-        detailView.items = items
+        detailView.items = podcast.episodes
         detailView.delegate = self
     }
     
     private func configureDetailView() {
-        guard let podcast = podcast else { return }
         detailView.configureView(podcast)
         if let imageUrl = podcast.image {
             ImageLoader.shared.loadImage(from: imageUrl) { [weak self] image in
@@ -28,7 +35,7 @@ final class DetailViewController: UIViewController {
 
 extension DetailViewController: DetailViewProtocol {
     func didTapEpisodeButton() {
-        guard let item = items else { return }
+        guard let item = podcast.episodes.first else { return }
         let episodeViewController = EpisodeViewController()
         episodeViewController.items = item
         navigationController?.pushViewController(episodeViewController, animated: true)

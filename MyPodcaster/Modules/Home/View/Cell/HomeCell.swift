@@ -73,11 +73,11 @@ extension HomeCell: ViewCode {
     
     func setupConstraint() {
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: self.topAnchor,constant: 4),
-            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor,constant: -16),
-            imageView.widthAnchor.constraint(equalToConstant: 80),
-            
+            imageView.topAnchor.constraint(equalTo: self.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+
             titleLabel.topAnchor.constraint(equalTo: imageView.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8),
             

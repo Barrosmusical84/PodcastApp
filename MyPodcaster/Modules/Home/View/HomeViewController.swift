@@ -1,7 +1,6 @@
 import UIKit
 
-
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
 
     var viewModel = HomeViewModel()
 
@@ -12,12 +11,6 @@ class HomeViewController: UIViewController {
         self.view = homeView
         setupNavegation()
         homeView.delegate = self
-    }
-
-    func showDetail(for item: RSSItem) {
-        let detailViewController = DetailViewController()
-        detailViewController.items = item
-        self.navigationController?.pushViewController(detailViewController, animated: true)
     }
     
     func setupNavegation() {
@@ -52,8 +45,9 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: HomeViewDelegate {
+
     func didSelectePodcast(podcast: PodcastModel) {
-        let detailViewController = DetailViewController()
+        let detailViewController = DetailViewController(podcast: podcast)
         detailViewController.podcast = podcast
         navigationController?.pushViewController(detailViewController, animated: true)
     }
