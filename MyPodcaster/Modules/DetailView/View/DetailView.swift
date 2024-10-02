@@ -29,7 +29,7 @@ final class DetailView: UIView {
         headStackView.translatesAutoresizingMaskIntoConstraints = false
         headStackView.backgroundColor = .clear
         headStackView.axis = .vertical
-        headStackView.spacing = 12
+        headStackView.spacing = 8
         headStackView.alignment = .center
         headStackView.distribution = .fillProportionally
         return headStackView
@@ -48,7 +48,7 @@ final class DetailView: UIView {
         let label = UILabel()
         label.lineBreakMode = .byTruncatingHead
         label.numberOfLines = 1
-        label.font = UIFont.systemFont(ofSize: 20, weight: .heavy)
+        label.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
         label.textColor = .white
         label.textAlignment = .center
         return label
@@ -91,9 +91,13 @@ final class DetailView: UIView {
         delegate?.didTapEpisodeButton()
     }
     
-    internal func configureView(_ podcast: PodcastModel) {
-        titleLabel.text = podcast.title
-        setupImageView(podcast)        
+    internal func configureView(podcast: PodcastModel) {
+        if let firstEpisode = podcast.episodes.first {
+                titleLabel.text = firstEpisode.author
+            } else {
+                titleLabel.text = "Autor não disponível" 
+            }
+        setupImageView(podcast)
     }
 
     internal func setupImageView(_ podcast: PodcastModel) {
@@ -151,15 +155,15 @@ extension DetailView: ViewCode {
             headStackView.topAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.topAnchor, constant: 8),
             headStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             headStackView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-            headStackView.heightAnchor.constraint(equalToConstant: 260),
+            headStackView.heightAnchor.constraint(equalToConstant: 280),
             
             imageView.heightAnchor.constraint(equalToConstant: 200),
             imageView.widthAnchor.constraint(equalToConstant: 200),
             
-            lastestEpisodeButton.heightAnchor.constraint(equalToConstant: 40),
+            lastestEpisodeButton.heightAnchor.constraint(equalToConstant: 30),
             lastestEpisodeButton.widthAnchor.constraint(equalToConstant: 200),
             
-            tableview.topAnchor.constraint(equalTo: headStackView.bottomAnchor,constant: 24),
+            tableview.topAnchor.constraint(equalTo: headStackView.bottomAnchor,constant: 12),
             tableview.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             tableview.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             tableview.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)

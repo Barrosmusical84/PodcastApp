@@ -30,7 +30,7 @@ final class DetailViewController: UIViewController {
     }
     
     private func configureDetailView() {
-        detailView.configureView(podcast)
+        detailView.configureView(podcast: podcast)
         if let imageUrl = podcast.image {
             activityIndicator.startAnimating()
             ImageLoader.shared.loadImage(from: imageUrl) { [weak self] image in
