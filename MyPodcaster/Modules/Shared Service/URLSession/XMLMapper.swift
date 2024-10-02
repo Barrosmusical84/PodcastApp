@@ -106,7 +106,7 @@ extension PodcastMapper: XMLParserDelegate {
                 summary: summary,
                 duration: duration
             )
-            //podcastModel.episodes.append(item)
+            podcastModel.episodes.append(item)
         } else if elementName == "title" {
             podcastModel.title = podcastTitle
         } else if elementName == "description" {
