@@ -26,16 +26,12 @@ final class HomeCell: UICollectionViewCell {
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         dateLabel.font = UIFont.systemFont(ofSize: 14)
         dateLabel.textColor = .white
-        dateLabel.numberOfLines = 4
+        dateLabel.numberOfLines = 0
         return dateLabel
     }()
     
-    private lazy var separatorView: UIView = {
-        let separatorView = UIView()
-        separatorView.translatesAutoresizingMaskIntoConstraints = false
-        separatorView.backgroundColor = .darkGray
-        return separatorView
-    }()
+    private var separatorView: UIView?
+    private var activityIndicator: UIActivityIndicatorView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,19 +42,23 @@ final class HomeCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(podcast: PodcastModel) {
+    func configureCell(podcast: PodcastModel) {
         titleLabel.text = podcast.title
         
         if let firstEpisode = podcast.episodes.first {
-               descriptionLabel.text = firstEpisode.pubDate
-           } else {
-               descriptionLabel.text = "No episodes available"
-           }
+            descriptionLabel.text = firstEpisode.pubDate
+        } else {
+            descriptionLabel.text = "No episodes available"
+        }
 
         if let imageUrl = podcast.image {
+            activityIndicator?.startAnimating()
             ImageLoader.shared.loadImage(from: imageUrl) { [weak self] image in
+                self?.activityIndicator?.stopAnimating()
                 self?.imageView.image = image
             }
+        } else {
+            imageView.image = nil
         }
     }
 }
@@ -68,7 +68,8 @@ extension HomeCell: ViewCode {
         addSubview(imageView)
         addSubview(titleLabel)
         addSubview(descriptionLabel)
-        addSubview(separatorView)
+        separatorView = self.addSeparatorView(color: .gray, height: 1)
+        activityIndicator = self.addActivityIndicator(style: .medium, color: .white)
     }
     
     func setupConstraint() {
@@ -84,15 +85,11 @@ extension HomeCell: ViewCode {
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
             descriptionLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 8),
             descriptionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            
-            separatorView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            separatorView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-            separatorView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-            separatorView.heightAnchor.constraint(equalToConstant: 1),
         ])
     }
     
     func setupAdditionalConfiguration() {
         self.backgroundColor = UIColor.customBackground
+        
     }
 }

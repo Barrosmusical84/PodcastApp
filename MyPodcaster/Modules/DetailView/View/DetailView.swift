@@ -112,7 +112,7 @@ final class DetailView: UIView {
                 }
             }
         } else {
-            imageView.image = UIImage(named: "defaultImage")
+            imageView.image = UIImage(named: "error-image")
         }
     }
     

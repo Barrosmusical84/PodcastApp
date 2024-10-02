@@ -7,7 +7,6 @@ protocol HomeViewDelegate: AnyObject {
 final class HomeView: UIView {
 
     var podcasts: [PodcastModel] = []
-    
     weak var delegate: HomeViewDelegate?
     
     public lazy var collectionView: UICollectionView = {
@@ -45,7 +44,6 @@ final class HomeView: UIView {
     init() {
         super.init(frame: .zero)
         setupView()
-//        uploadData()
     }
     
     func configure(podcast: PodcastModel) {
@@ -73,7 +71,7 @@ extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeCell.identifier, for: indexPath) as? HomeCell
-        cell?.configure(podcast: podcasts[indexPath.item])
+        cell?.configureCell(podcast: podcasts[indexPath.item])
         return cell ?? UICollectionViewCell()
     }
     
@@ -107,7 +105,6 @@ extension HomeView: ViewCode {
             imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
             imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -16),
             imageView.heightAnchor.constraint(equalToConstant: 180),
-
             
             collectionView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 24),
             collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 16),
