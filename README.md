@@ -1,4 +1,5 @@
 MyPodcaster
+
 Objetivo
 O objetivo deste projeto é desenvolver um aplicativo que acessa feeds RSS de podcasts públicos e reproduz seus episódios. TODAS as funcionalidades obrigatórias foram implementadas!
 
