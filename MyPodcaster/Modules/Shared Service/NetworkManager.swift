@@ -50,6 +50,7 @@ class NetworkManager: NSObject, XMLParserDelegate {
         summary = ""
         duration = nil
         currentDescription = ""
+        isHeader = true
     }
 
     func parseXML(data: Data) {

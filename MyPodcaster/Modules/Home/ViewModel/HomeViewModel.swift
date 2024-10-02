@@ -20,6 +20,7 @@ class HomeViewModel {
         }
 
         manager.fetchRSSFeed(url: url)
+
         manager.completion = { [weak self] podcast in
 
             guard let self = self else {

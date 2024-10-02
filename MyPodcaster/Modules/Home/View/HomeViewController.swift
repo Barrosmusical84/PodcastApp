@@ -6,6 +6,14 @@ final class HomeViewController: UIViewController {
 
     private lazy var homeView = HomeView()
 
+    var urls = [
+        "https://feeds.megaphone.fm/la-cotorrisa",
+        "https://anchor.fm/s/7a186bc/podcast/rss",
+        "http://feeds.feedburner.com/GeekNights",
+    ]
+
+    var index = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view = homeView
@@ -20,6 +28,10 @@ final class HomeViewController: UIViewController {
     }
     
     @objc func didTapRightButton() {
+        let url = urls[index]
+        self.processRSSFeed(url)
+        index = index + 1
+        return
         let alert = UIAlertController(title: "Insira a URL", message: nil, preferredStyle: .alert)
         alert.addTextField { textField in
             textField.placeholder = "Podcast URL"
