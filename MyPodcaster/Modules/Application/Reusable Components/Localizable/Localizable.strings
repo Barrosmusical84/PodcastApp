@@ -15,11 +15,12 @@
 "url_text" = "URL inserida:";
 "alert_insert_URL_placeholder" = "Podcast URL";
 "alert_error" = "Erro no servidor";
-"alert_error_message" = "Ocorreu um erro ao tentar exibir o podcast";
+"alert_error_message" = "Ocorreu um erro ao tentar exibir o podcast. Verifique sua conexão";
+"alert_invalid_URL" = "URL inválida";
 "logo_two" = "logo2";
 
 // MARK: - Home
 "title_label" = "Shows";
 
 // MARK: - PodcastView
-"lastest_episode_button" = " Último episódio",
+"lastest_episode_button" = " Último episódio";

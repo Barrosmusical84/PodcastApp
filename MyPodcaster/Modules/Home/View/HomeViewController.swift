@@ -11,8 +11,8 @@ final class HomeViewController: UIViewController {
     }()
 
     var urls = [
-        "https://feeds.megaphone.fm/la-cotorrisa",
-        "https://anchor.fm/s/7a186bc/podcast/rss",
+        "https://feeds.megaphone.fm/la-cotorrisa_error",
+        "https://anchor.fm/s/7a186bc/podcast/rss_error",
         "http://feeds.feedburner.com/GeekNights",
     ]
 
@@ -85,11 +85,15 @@ extension HomeViewController: HomeViewModelDelegate {
     func showServerError() {
         self.homeView.stopLoading()
         let alert = UIAlertController(title: Constants.Alert.alertError.localized, message: Constants.Alert.alertErrorMessage.localized, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 
     func showErrorForInvalidURL() {
         self.homeView.stopLoading()
-        //EXIBIR ALERTA COM MENSAGEM PARA O USUÁRIO
+        let alert = UIAlertController(title: Constants.Alert.alertError.localized, message: Constants.Alert.alertErrorMessage.localized, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -109,6 +113,6 @@ extension HomeViewController {
         appearance.buttonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.tintColor = .white //
+        navigationController?.navigationBar.tintColor = .white 
     }
 }

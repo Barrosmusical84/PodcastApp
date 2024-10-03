@@ -39,15 +39,15 @@ final class PodcastViewController: UIViewController {
 }
 
 extension PodcastViewController: DetailViewProtocol {
-    func didSelectEpisodeButton(selectedEpisode: EpisodeModel) {
+    func didSelectEpisodeButton(selectedEpisode: EpisodeModelProtocol) {
         let episodeViewController = EpisodeViewController(viewModel: selectedEpisode)
         navigationController?.pushViewController(episodeViewController, animated: true)
     }
     
     func didTapEpisodeButton() {
         let podcast = viewModel.fetchPodcast()
-        guard let item = podcast.episodes.first else { return }
-        let episodeViewController = EpisodeViewController(viewModel: item)
+        guard let episode = podcast.episodes.first else { return }
+        let episodeViewController = EpisodeViewController(viewModel: episode)
         navigationController?.pushViewController(episodeViewController, animated: true)
     }
 }

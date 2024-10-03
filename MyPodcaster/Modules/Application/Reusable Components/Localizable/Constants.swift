@@ -17,6 +17,7 @@ enum Constants {
         case urlText = "url_text"
         case alertInsertURLPlaceholder = "alert_insert_URL_placeholder"
         case alertError = "alert_error"
+        case alertInvalidURL = "alert_invalid_URL"
         case alertErrorMessage = "alert_error_message"
     }
     
