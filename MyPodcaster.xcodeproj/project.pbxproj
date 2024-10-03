@@ -189,6 +189,7 @@
 		65FCF78D2CA7054E009EB880 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				65FEC1D52CAF28E400614269 /* SharedModels */,
 				65EF84412CA9F039002EFF27 /* Episode */,
 				65FCF7912CA70595009EB880 /* Podcast */,
 				65FCF78E2CA70558009EB880 /* Home */,
@@ -202,7 +203,6 @@
 			isa = PBXGroup;
 			children = (
 				C738FEE52CADB24000C87A3C /* Coordinator */,
-				C76DA3E62CAB2A4F00E57F5F /* Model */,
 				C76DA3E52CAB2A4A00E57F5F /* ViewModel */,
 				65FCF7902CA70582009EB880 /* View */,
 				657B4AEA2CADDECA001AE0CD /* Factory */,
@@ -296,6 +296,14 @@
 				C7F4EF192CAF083900BE7D37 /* UIViewController+Helpers.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		65FEC1D52CAF28E400614269 /* SharedModels */ = {
+			isa = PBXGroup;
+			children = (
+				C76DA3E62CAB2A4F00E57F5F /* Model */,
+			);
+			path = SharedModels;
 			sourceTree = "<group>";
 		};
 		C738FEE52CADB24000C87A3C /* Coordinator */ = {
