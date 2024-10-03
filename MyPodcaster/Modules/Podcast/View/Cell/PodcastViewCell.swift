@@ -55,7 +55,7 @@ final class PodcastViewCell: UITableViewCell {
         if let text = items.summary?.attributedHtmlString, !text.string.isEmpty {
             descriptionLabel.text = text.string
         } else {
-            descriptionLabel.text = "Descrição não disponível"
+            descriptionLabel.text = Constants.PodcastView.descriptionUnavailable.localized
         }
     }
     
@@ -64,9 +64,9 @@ final class PodcastViewCell: UITableViewCell {
         let minutes = (durationInSeconds % 3600) / 60
         
         if hours > 0 {
-            return "\(hours)h \(minutes)min"
+            return "\(hours)\(Constants.PodcastView.hours.localized) \(minutes)\(Constants.PodcastView.minutes.localized)"
         } else {
-            return "\(minutes)m"
+            return "\(minutes)\(Constants.PodcastView.minutes.localized)"
         }
     }
 }
@@ -106,7 +106,6 @@ extension String {
             ],
                                           documentAttributes: nil)
         } catch {
-            print("Error:", error)
             return nil
         }
     }

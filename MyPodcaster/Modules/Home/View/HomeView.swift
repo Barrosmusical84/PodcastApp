@@ -36,7 +36,7 @@ final class HomeView: UIView {
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: Constants.Assets.logoTwo.localized)
+        imageView.image = UIImage(named: "logo2")
         imageView.alpha = .greatestFiniteMagnitude
         return imageView
     }()

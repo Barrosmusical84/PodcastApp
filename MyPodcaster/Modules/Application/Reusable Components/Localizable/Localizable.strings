@@ -17,10 +17,18 @@
 "alert_error" = "Ops! Ocorreu um erro";
 "alert_error_message" = "Ocorreu um erro ao tentar exibir o podcast. Verifique sua conexão";
 "alert_invalid_URL" = "Verifique a sua URL e tente novamente, por favor.";
-"logo_two" = "logo2";
+"alert_ok" = "OK";
 
 // MARK: - Home
 "title_label" = "Shows";
 
 // MARK: - PodcastView
-"lastest_episode_button" = " Assista";
+"lastest_episode_button" = "Assista";
+"no_summary_available" = "No summary Available";
+"hours" = "h";
+"minutes" = "min";
+"description_unavailable" = "Descrição não disponível";
+
+// MARK: - EpisodeView
+"zero_timer" = "0:00";
+

@@ -19,12 +19,7 @@ enum Constants {
         case alertError = "alert_error"
         case alertInvalidURL = "alert_invalid_URL"
         case alertErrorMessage = "alert_error_message"
-    }
-    
-    enum Assets: String {
-        var localized: String { rawValue.localized }
-        
-        case logoTwo = "logo_two"
+        case alertOk = "alert_ok"
     }
     
     enum Home: String {
@@ -37,8 +32,15 @@ enum Constants {
         var localized: String { rawValue.localized }
         
         case lastestEpisodeButton = "lastest_episode_button"
+        case noSummary = "no_summary_available"
+        case hours = "hours"
+        case minutes = "minutes"
+        case descriptionUnavailable = "description_unavailable"
+        
     }
     
-    
+    enum EpisodeView: String {
+        var localized: String { rawValue.localized }
+        case zeroTimer = "zero_timer"
+    }
 }
-

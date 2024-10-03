@@ -55,7 +55,7 @@ extension HomeViewController: HomeViewModelDelegate {
                                       message: Constants.Alert.alertErrorMessage.localized,
                                       preferredStyle: .alert)
 
-        alert.addAction(UIAlertAction(title: "OK",
+        alert.addAction(UIAlertAction(title: Constants.Alert.alertOk.localized,
                                       style: .default,
                                       handler: nil))
 
@@ -69,7 +69,7 @@ extension HomeViewController: HomeViewModelDelegate {
                                       message: Constants.Alert.alertInvalidURL.localized,
                                       preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "OK",
+        alert.addAction(UIAlertAction(title: Constants.Alert.alertOk.localized,
                                       style: .default,
                                       handler: nil))
         self.present(alert, animated: true, completion: nil)

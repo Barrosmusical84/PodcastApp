@@ -67,7 +67,7 @@ final class EpisodeView: UIView {
         label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         label.textColor = .gray
         label.textAlignment = .left
-        label.text = "0:00"
+        label.text = Constants.EpisodeView.zeroTimer.localized
         return label
     }()
     
@@ -87,7 +87,7 @@ final class EpisodeView: UIView {
         label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         label.textColor = .gray
         label.textAlignment = .right
-        label.text = "0:00"
+        label.text = Constants.EpisodeView.zeroTimer.localized
         return label
     }()
     
