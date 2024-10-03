@@ -1,10 +1,11 @@
 import Foundation
 
-final class DetailCoordinator {
+final class PodcastCoordinator {
     weak var detailViewController: PodcastViewController?
     
     func openEpisode(_ episode: EpisodeModel) {
-        let episodeViewController = EpisodeViewController(episode: episode)
+        let viewModel = EpisodeViewModel(episode: episode)
+        let episodeViewController = EpisodeViewController(viewModel: viewModel)
         detailViewController?.navigationController?.pushViewController(episodeViewController, animated: true)
     }
 }

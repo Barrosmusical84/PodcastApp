@@ -3,13 +3,15 @@ import UIKit
 final class PodcastViewController: UIViewController {
 
     private let viewModel: PodcastModelProtocol
+    private let coordinator: PodcastCoordinator
     
-    init(viewModel: PodcastModelProtocol) {
+    init(viewModel: PodcastModelProtocol, coordinator: PodcastCoordinator) {
         self.viewModel = viewModel
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     
-    private lazy var detailView = DetailView()
+    private lazy var detailView = PodcastView()
     
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
@@ -40,15 +42,16 @@ final class PodcastViewController: UIViewController {
 
 extension PodcastViewController: DetailViewProtocol {
     func didSelectEpisodeButton(selectedEpisode: EpisodeModelProtocol) {
-        let episodeViewController = EpisodeViewController(viewModel: selectedEpisode)
-        navigationController?.pushViewController(episodeViewController, animated: true)
+//        let episodeViewController = EpisodeViewController(viewModel: selectedEpisode)
+        let episode = viewModel.didSelectEpisode(selectedEpisode)
+        coordinator.openEpisode(selectedEpisode)
+//        navigationController?.pushViewController(episodeViewController, animated: true)
     }
     
     func didTapEpisodeButton() {
         let podcast = viewModel.fetchPodcast()
-        guard let episode = podcast.episodes.first else { return }
-        let episodeViewController = EpisodeViewController(viewModel: episode)
-        navigationController?.pushViewController(episodeViewController, animated: true)
+        guard let podcast = podcast.episodes.first else { return }
+        coordinator.openEpisode(podcast)
     }
 }
 

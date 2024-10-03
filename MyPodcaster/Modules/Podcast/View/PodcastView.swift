@@ -5,7 +5,7 @@ protocol DetailViewProtocol: AnyObject {
     func didSelectEpisodeButton(selectedEpisode: EpisodeModelProtocol)
 }
 
-final class DetailView: UIView {
+final class PodcastView: UIView {
     
     weak var delegate: DetailViewProtocol?
     
@@ -110,17 +110,17 @@ final class DetailView: UIView {
     }
     
     private func registerCell() {
-        tableview.register(DetailViewCell.self, forCellReuseIdentifier: DetailViewCell.identifier)
+        tableview.register(PodcastViewCell.self, forCellReuseIdentifier: PodcastViewCell.identifier)
     }
 }
 
-extension DetailView: UITableViewDataSource, UITableViewDelegate {
+extension PodcastView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return episodes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DetailViewCell.identifier, for: indexPath) as? DetailViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: PodcastViewCell.identifier, for: indexPath) as? PodcastViewCell
         let item = episodes[indexPath.row]
         cell?.configure(items: item)
         cell?.selectionStyle = .none
@@ -137,7 +137,7 @@ extension DetailView: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-extension DetailView: ViewCode {
+extension PodcastView: ViewCode {
     func buildViewHierarchy() {
         addSubview(containerView)
         containerView.addSubview(headStackView)

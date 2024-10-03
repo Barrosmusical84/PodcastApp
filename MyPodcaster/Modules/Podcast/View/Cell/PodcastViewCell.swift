@@ -1,6 +1,6 @@
 import UIKit
 
-final class DetailViewCell: UITableViewCell {
+final class PodcastViewCell: UITableViewCell {
     
     private lazy var detailStackView: UIStackView = {
         let detailStackView = UIStackView(arrangedSubviews: [dateLabel,
@@ -118,7 +118,7 @@ final class DetailViewCell: UITableViewCell {
     }
 }
 
-extension DetailViewCell: ViewCode {
+extension PodcastViewCell: ViewCode {
     func buildViewHierarchy() {
         addSubview(detailStackView)
         addSubview(timeGenderStackView)
