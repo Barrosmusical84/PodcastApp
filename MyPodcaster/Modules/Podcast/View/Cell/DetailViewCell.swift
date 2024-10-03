@@ -38,7 +38,7 @@ final class DetailViewCell: UITableViewCell {
     }()
     
     private lazy var timeGenderStackView: UIStackView = {
-        let timeGenderStackView = UIStackView(arrangedSubviews: [timerButton, genterLabel])
+        let timeGenderStackView = UIStackView(arrangedSubviews: [timerButton, genderLabel])
         timeGenderStackView.translatesAutoresizingMaskIntoConstraints = false
         timeGenderStackView.axis = .horizontal
         timeGenderStackView.distribution = .fillProportionally
@@ -63,14 +63,14 @@ final class DetailViewCell: UITableViewCell {
         return button
     }()
     
-    private lazy var genterLabel: UILabel = {
-        let genterLabel = UILabel()
-        genterLabel.font = .systemFont(ofSize: 14)
-        genterLabel.textColor = .white
-        genterLabel.numberOfLines = 1
-        genterLabel.text = "Comédia"
-        genterLabel.textAlignment = .right
-        return genterLabel
+    private lazy var genderLabel: UILabel = {
+        let genderLabel = UILabel()
+        genderLabel.font = .systemFont(ofSize: 14)
+        genderLabel.textColor = .white
+        genderLabel.numberOfLines = 1
+        genderLabel.text = "Comédia"
+        genderLabel.textAlignment = .right
+        return genderLabel
     }()
     
     private var separatorView: UIView?
