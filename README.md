@@ -12,24 +12,24 @@ O app contém os seguintes módulos principais:
 - Detalhes do Episódio
 - Player de Episódios
   
-A arquitetura do aplicativo é a MVVM. 
+A arquitetura do aplicativo é a MVVM com coordinator. 
 Cada módulo segue uma estrutura clara para garantir manutenibilidade e separação de responsabilidades.
 
 ## Requisitos do Projeto:
 
-- MacOS Monterey 12.3.1+
-- iOS 15+
+- MacOS Sonoma 14.3.1
+- iOS 17+
 - Swift 5+
-- Xcode 13.3+
+- Xcode 15.0.1
 
 ## Sobre o Projeto:
 
 ### Tela 1 - Fonte de RSS (Home)
-A primeira tela consiste em um formulário simples onde o usuário pode inserir uma URL de um feed RSS de um podcast público. Existe também um botão de ação para carregar o feed e exibir os detalhes do podcast.
-
-**Funcionalidades Extras:**
-
-- Histórico de URLs usadas previamente pelo usuário.
+- A primeira tela consiste em um formulário simples onde o usuário pode inserir uma URL de um feed RSS de um podcast público. Ao adicional outra URL o usuário consegue ver as que foram carregadas anteriormente exibindo sempre da última a primeira.
+- Armazenamento de Cache:
+  - Implementado o cache para o feed RSS e para as imagens dos podcasts, com a opção de limpar o cache diretamente pela interface do usuário.
+- Tratamento de Erros:
+  - O tratamento de erros é feito de maneira robusta para garantir que o usuário seja informado de problemas de conexão e URLs inválidas.
 
 ### Tela 2 - Detalhes do Podcast
 Ao carregar um feed RSS, esta tela exibe os detalhes do podcast, incluindo:
@@ -46,16 +46,23 @@ Ao carregar um feed RSS, esta tela exibe os detalhes do podcast, incluindo:
 Aqui o usuário pode controlar a reprodução do podcast. 
 As seguintes funcionalidades foram implementadas:
 
-- Barra de progresso do episódio
 - Botão de Play/Pausa
-- Botões para pular para o próximo episódio ou voltar ao episódio anterior
-- Armazenamento de Cache
-  - Implementado o cache para o feed RSS e para as imagens dos podcasts, com a opção de limpar o cache diretamente pela interface do usuário.
-- Tratamento de Erros
-  - O tratamento de erros é feito de maneira robusta para garantir que o usuário seja informado de problemas de conexão, URLs inválidas, e falhas ao carregar episódios.
 
-## Arquitetura MVVM
+## Arquitetura MVVM + Coordinator
 Todas as telas são 100% implementadas em ViewCode, sem o uso de Storyboards, seguindo os princípios SOLID, o que torna o código mais fácil de manter, estender e testar de forma isolada.
+
+## Design Pattern e implementações importantes.
+Estou utilizando o padrão de design Factory, que encapsula a lógica de criação de objetos, promovendo flexibilidade e desacoplamento no código ao delegar a subclasses a decisão de qual classe instanciar.
+
+Desenvolvi um cache de imagem utilizando a classe Image Load, otimizando o carregamento e reutilização de imagens no projeto.
+O armazenando dos podcasts estão sendo feitos usando a classe User Defaults.
+
+## Débito técnicos:
+-  Na tela 3 ficou faltando:
+  - Se tive mais tempo iria implementar as ações nos botões para pular para o próximo episódio ou voltar ao episódio anterior e o tempo de progresso inicial e final.
+  - Ação na Barra de progresso do episódio
+  - Estudar mais a documentação pra entender melhor o AVPlayer
+    
 
 ## Considerações Finais
 Este projeto visa não apenas atender aos requisitos de funcionalidade, mas também implementar boas práticas de código, como uma estrutura de commits limpa e modularização. A arquitetura MVVM, o tratamento de erros e o uso de caching foram cuidadosamente planejados para oferecer uma experiência fluida e confiável.
