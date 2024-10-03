@@ -16,12 +16,13 @@ final class PodcastMapper: NSObject {
     var summary: String = ""
     var duration: Int?
     var currentDescription = ""
-
+    var currentGender = ""
+    
     var podcastModel = PodcastModel()
     var isHeader: Bool = true
     var podcastURL: String = ""
 
-    var completion: ((PodcastModel) ->())?
+    var completion: ((PodcastModel?) ->())?
 
     func parseXML(data: Data, url: String) {
         podcastModel.url = url
@@ -56,6 +57,10 @@ extension PodcastMapper: XMLParserDelegate {
             case "enclosure":
                 if let urlString = attributeDict["url"] {
                     currentLink = urlString
+                }
+            case "itunes:category":
+                if let urlString = attributeDict["text"] {
+                    podcastModel.gender = urlString
                 }
             default:
                 break
@@ -121,6 +126,14 @@ extension PodcastMapper: XMLParserDelegate {
     }
 
     func parserDidEndDocument(_ parser: XMLParser) {
-        completion?(podcastModel)
+        completion?(isPodcastModelNil() ? nil : podcastModel)
+    }
+
+    func isPodcastModelNil() -> Bool {
+        return podcastModel.title == nil && podcastModel.image == nil && podcastModel.episodes.isEmpty
+    }
+
+    func parser(_ parser: XMLParser, parseErrorOccurred parseError: any Error) {
+        print()
     }
 }

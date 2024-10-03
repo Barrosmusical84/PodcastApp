@@ -41,11 +41,8 @@ final class PodcastViewController: UIViewController {
 }
 
 extension PodcastViewController: DetailViewProtocol {
-    func didSelectEpisodeButton(selectedEpisode: EpisodeModelProtocol) {
-//        let episodeViewController = EpisodeViewController(viewModel: selectedEpisode)
-        let episode = viewModel.didSelectEpisode(selectedEpisode)
-        coordinator.openEpisode(selectedEpisode)
-//        navigationController?.pushViewController(episodeViewController, animated: true)
+    func didSelectEpisodeButton(selectedEpisode: EpisodeModel) {
+        viewModel.didSelectEpisode(selectedEpisode)
     }
     
     func didTapEpisodeButton() {

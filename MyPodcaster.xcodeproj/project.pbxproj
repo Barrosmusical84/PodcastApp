@@ -37,6 +37,7 @@
 		C76DA3E42CAB273400E57F5F /* URLSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76DA3E32CAB273400E57F5F /* URLSessionManager.swift */; };
 		C76DA3E82CAB2A5700E57F5F /* PodcastModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76DA3E72CAB2A5700E57F5F /* PodcastModel.swift */; };
 		C76DA3EA2CAB2A6E00E57F5F /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76DA3E92CAB2A6E00E57F5F /* HomeViewModel.swift */; };
+		C7F4EF182CAEFC4500BE7D37 /* EpisodeViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F4EF172CAEFC4500BE7D37 /* EpisodeViewControllerFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		C76DA3E32CAB273400E57F5F /* URLSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionManager.swift; sourceTree = "<group>"; };
 		C76DA3E72CAB2A5700E57F5F /* PodcastModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastModel.swift; sourceTree = "<group>"; };
 		C76DA3E92CAB2A6E00E57F5F /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		C7F4EF172CAEFC4500BE7D37 /* EpisodeViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeViewControllerFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 			children = (
 				65FB0BAD2CAEB0360068EBF1 /* ViewModel */,
 				65FEC1CE2CAEE56B00614269 /* View */,
+				C7F4EF172CAEFC4500BE7D37 /* EpisodeViewControllerFactory.swift */,
 			);
 			path = Episode;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				657B4AE92CAD7E9C001AE0CD /* UIView+Helpers.swift in Sources */,
 				65DF05072CAB11CF007F9484 /* HomeView.swift in Sources */,
 				65DF05052CAAF7DA007F9484 /* UIColor + Extension.swift in Sources */,
+				C7F4EF182CAEFC4500BE7D37 /* EpisodeViewControllerFactory.swift in Sources */,
 				65FCF7942CA705BE009EB880 /* PodcastViewController.swift in Sources */,
 				C76DA3EA2CAB2A6E00E57F5F /* HomeViewModel.swift in Sources */,
 				65DF050A2CAB14EA007F9484 /* HomeCell.swift in Sources */,

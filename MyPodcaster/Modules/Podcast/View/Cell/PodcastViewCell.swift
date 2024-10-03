@@ -68,7 +68,6 @@ final class PodcastViewCell: UITableViewCell {
         genderLabel.font = .systemFont(ofSize: 14)
         genderLabel.textColor = .white
         genderLabel.numberOfLines = 1
-        genderLabel.text = "Comédia"
         genderLabel.textAlignment = .right
         return genderLabel
     }()
@@ -88,7 +87,7 @@ final class PodcastViewCell: UITableViewCell {
         dateLabel.text = items.pubDate
         titleLabel.text = items.title
         descriptionLabel.text = items.summary ?? "No summary available"
-        setupButton(items: items)        
+        setupButton(items: items)
     }
     
     private func setupButton(items: EpisodeModel) {

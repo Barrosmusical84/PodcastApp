@@ -11,8 +11,8 @@ final class HomeViewController: UIViewController {
     }()
 
     var urls = [
-        "https://feeds.megaphone.fm/la-cotorrisa_error",
-        "https://anchor.fm/s/7a186bc/podcast/rss_error",
+        "https://feeds.megaphone.fm/la-cotorrisa",
+        "https://anchor.fm/s/7a186bc/podcast/rss",
         "http://feeds.feedburner.com/GeekNights",
     ]
 
@@ -91,7 +91,7 @@ extension HomeViewController: HomeViewModelDelegate {
 
     func showErrorForInvalidURL() {
         self.homeView.stopLoading()
-        let alert = UIAlertController(title: Constants.Alert.alertError.localized, message: Constants.Alert.alertErrorMessage.localized, preferredStyle: .alert)
+        let alert = UIAlertController(title: Constants.Alert.alertError.localized, message: Constants.Alert.alertInvalidURL.localized, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }

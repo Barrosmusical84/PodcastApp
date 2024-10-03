@@ -7,6 +7,7 @@ protocol URLSessionManagerProtocol {
 protocol URLSessionManagerDelegate:AnyObject {
     func didFetchPodcast(podcast: PodcastModel)
     func didFailToFetchPodcast()
+    func didFailToFetchWrongURL()
 }
 
 final class URLSessionManager: URLSessionManagerProtocol {
@@ -23,13 +24,21 @@ final class URLSessionManager: URLSessionManagerProtocol {
         let task = session.dataTask(with: url) { data, response, error in
 
             guard let data = data, error == nil else {
-                self.delegate?.didFailToFetchPodcast()
+                if let nsError = error as? NSError, nsError.code == -1002 {
+                    self.delegate?.didFailToFetchWrongURL()
+                } else {
+                    self.delegate?.didFailToFetchPodcast()
+                }
                 return
             }
 
             let mapper = PodcastMapper()
-            mapper.completion = { podcastModel in
-                self.delegate?.didFetchPodcast(podcast: podcastModel)
+            mapper.completion = { [weak self] podcast in
+                guard let self, let podcast = podcast else {
+                    self?.delegate?.didFailToFetchPodcast()
+                    return
+                }
+                self.delegate?.didFetchPodcast(podcast: podcast)
             }
             mapper.parseXML(data: data, url: url.absoluteString)
         }

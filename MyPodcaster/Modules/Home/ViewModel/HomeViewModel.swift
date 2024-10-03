@@ -42,9 +42,16 @@ final class HomeViewModel {
 }
 
 extension HomeViewModel: URLSessionManagerDelegate {
+    
+    func didFailToFetchWrongURL() {
+        DispatchQueue.main.async {
+            self.delegate?.showErrorForInvalidURL()
+        }
+    }
+    
 
     func didFetchPodcast(podcast: PodcastModel) {
-        userDefaultsManager.save(podcast: podcast)
+        //userDefaultsManager.save(podcast: podcast)
         DispatchQueue.main.async {
             self.delegate?.show(podcast: podcast)
         }

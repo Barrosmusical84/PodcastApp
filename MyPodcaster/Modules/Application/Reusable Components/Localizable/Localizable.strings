@@ -14,9 +14,9 @@
 "follow_action" = "Seguir";
 "url_text" = "URL inserida:";
 "alert_insert_URL_placeholder" = "Podcast URL";
-"alert_error" = "Erro no servidor";
+"alert_error" = "Ops! Ocorreu um erro";
 "alert_error_message" = "Ocorreu um erro ao tentar exibir o podcast. Verifique sua conexão";
-"alert_invalid_URL" = "URL inválida";
+"alert_invalid_URL" = "Verifique a sua URL e tente novamente, por favor.";
 "logo_two" = "logo2";
 
 // MARK: - Home

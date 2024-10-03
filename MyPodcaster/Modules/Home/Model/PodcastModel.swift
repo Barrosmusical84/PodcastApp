@@ -5,5 +5,6 @@ struct PodcastModel: Codable {
     var title: String?
     var image: String?
     var description: String?
+    var gender: String?
     var episodes: [EpisodeModel] = []
 }

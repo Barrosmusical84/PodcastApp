@@ -2,7 +2,7 @@ import UIKit
 
 protocol DetailViewProtocol: AnyObject {
     func didTapEpisodeButton()
-    func didSelectEpisodeButton(selectedEpisode: EpisodeModelProtocol)
+    func didSelectEpisodeButton(selectedEpisode: EpisodeModel)
 }
 
 final class PodcastView: UIView {
