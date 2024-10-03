@@ -38,7 +38,7 @@ final class HomeViewController: UIViewController {
     }
     
     func setupNavegation() {
-        let rightButton = UIBarButtonItem(title: "Add URL", style: .plain, target: self, action: #selector(didTapRightButton))
+        let rightButton = UIBarButtonItem(title: Constants.Navigation.rightButton.localized, style: .plain, target: self, action: #selector(didTapRightButton))
         navigationItem.rightBarButtonItem = rightButton
         appearanceNavegation()
     }
@@ -48,21 +48,21 @@ final class HomeViewController: UIViewController {
         self.fetch(url: url)
         index = index + 1
         return
-        let alert = UIAlertController(title: "Insira a URL", message: nil, preferredStyle: .alert)
-        alert.addTextField { textField in
-            textField.placeholder = "Podcast URL"
+        let alertInsertURL = UIAlertController(title: Constants.Alert.alertInsertURL.localized, message: nil, preferredStyle: .alert)
+        alertInsertURL.addTextField { textField in
+            textField.placeholder = Constants.Alert.alertInsertURLPlaceholder.localized
             textField.keyboardType = .URL
         }
-        let cancelAction = UIAlertAction(title: "Cancelar", style: .cancel, handler: nil)
-        let followAction = UIAlertAction(title: "Seguir", style: .default) { [weak alert] _ in
-            if let urlText = alert?.textFields?.first?.text, !urlText.isEmpty {
-                print("URL inserida: \(urlText)")
+        let cancelAction = UIAlertAction(title: Constants.Alert.cancelAction.localized, style: .cancel, handler: nil)
+        let followAction = UIAlertAction(title: Constants.Alert.followAction.localized, style: .default) { [weak alertInsertURL] _ in
+            if let urlText = alertInsertURL?.textFields?.first?.text, !urlText.isEmpty {
+                print("\(Constants.Alert.followAction.localized) \(urlText)")
                 self.fetch(url: urlText)
             }
         }
-        alert.addAction(cancelAction)
-        alert.addAction(followAction)
-        present(alert, animated: true, completion: nil)
+        alertInsertURL.addAction(cancelAction)
+        alertInsertURL.addAction(followAction)
+        present(alertInsertURL, animated: true, completion: nil)
     }
 
     func fetch(url: String) {
@@ -84,7 +84,7 @@ extension HomeViewController: HomeViewModelDelegate {
 
     func showServerError() {
         self.homeView.stopLoading()
-        let alert = UIAlertController(title: "Erro no servidor", message: "Ocorreu um erro ao tentar exibir o podcast", preferredStyle: .alert)
+        let alert = UIAlertController(title: Constants.Alert.alertError.localized, message: Constants.Alert.alertErrorMessage.localized, preferredStyle: .alert)
     }
 
     func showErrorForInvalidURL() {

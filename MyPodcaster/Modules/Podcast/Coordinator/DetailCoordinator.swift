@@ -1,7 +1,7 @@
 import Foundation
 
 final class DetailCoordinator {
-    weak var detailViewController: DetailViewController?
+    weak var detailViewController: PodcastViewController?
     
     func openEpisode(_ episode: EpisodeModel) {
         let episodeViewController = EpisodeViewController(episode: episode)

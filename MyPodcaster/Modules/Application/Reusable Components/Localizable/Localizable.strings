@@ -1,0 +1,25 @@
+/* 
+  Localizable.strings
+  MyPodcaster
+
+  Created by André Barros on 03/10/24.
+*/
+
+// MARK: - Navigation Bar Button
+"navigation_bar_right_menu_button" = "Add URL";
+
+// MARK: - Alert
+"alert_insert_URL" = "Insira a URL";
+"cancel_action" = "Cancelar";
+"follow_action" = "Seguir";
+"url_text" = "URL inserida:";
+"alert_insert_URL_placeholder" = "Podcast URL";
+"alert_error" = "Erro no servidor";
+"alert_error_message" = "Ocorreu um erro ao tentar exibir o podcast";
+"logo_two" = "logo2";
+
+// MARK: - Home
+"title_label" = "Shows";
+
+// MARK: - PodcastView
+"lastest_episode_button" = " Último episódio",

@@ -3,15 +3,13 @@ import UIKit
 
 protocol EpisodeViewProtocolDelegate: AnyObject {
     func didTapPlayPauseButton()
-    func setupPlayerAudio(item: EpisodeModel)
+    func setupPlayerAudio(episode: EpisodeModel)
 }
 
 final class EpisodeView: UIView {
     
     weak var delegate: EpisodeViewProtocolDelegate?
     
-    var items: [EpisodeModel] = []
-
     private lazy var containerView: UIView = {
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -150,13 +148,13 @@ final class EpisodeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    internal func configureView(_ items: EpisodeModel) {
-        titleLabel.text = items.title
-        setupImageView(items)
+    internal func configureView(_ episode: EpisodeModel) {
+        titleLabel.text = episode.title
+        setupImageView(episode)
     }
     
-    internal func setupImageView(_ item: EpisodeModel) {
-        if let imageURL = item.imageURL {
+    internal func setupImageView(_ episode: EpisodeModel) {
+        if let imageURL = episode.imageURL {
             DispatchQueue.global().async {
                 if let data = try? Data(contentsOf: imageURL), let image = UIImage(data: data) {
                     DispatchQueue.main.async {
@@ -170,7 +168,7 @@ final class EpisodeView: UIView {
     }
     
     private func setupPlayerAudio(item: EpisodeModel) {
-        delegate?.setupPlayerAudio(item: item)
+        delegate?.setupPlayerAudio(episode: item)
     }
     
     @objc func didTapPlayPauseButton() {

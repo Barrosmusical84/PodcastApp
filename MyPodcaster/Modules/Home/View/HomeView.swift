@@ -26,7 +26,7 @@ final class HomeView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 24)
         label.textColor = .white
-        label.text = "Shows"
+        label.text = Constants.Home.titleLabel.localized
         return label
     }()
     
@@ -36,7 +36,7 @@ final class HomeView: UIView {
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "logo2")
+        imageView.image = UIImage(named: Constants.Assets.logoTwo.localized)
         imageView.alpha = .greatestFiniteMagnitude
         return imageView
     }()

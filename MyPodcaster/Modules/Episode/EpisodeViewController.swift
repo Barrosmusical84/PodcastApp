@@ -3,7 +3,7 @@ import AVFoundation
 
 final class EpisodeViewController: UIViewController {
    
-    private let episode: EpisodeModel
+    private let viewModel: EpisodeModelProtocol
     
     private var player: AVPlayer?
     
@@ -11,8 +11,8 @@ final class EpisodeViewController: UIViewController {
     
     private var session: AVAudioSession
 
-    init(episode: EpisodeModel, session: AVAudioSession = AVAudioSession.sharedInstance()) {
-        self.episode = episode
+    init(viewModel: EpisodeModelProtocol, session: AVAudioSession = AVAudioSession.sharedInstance()) {
+        self.viewModel = viewModel
         self.session = session
         super.init(nibName: nil, bundle: nil)
     }
@@ -34,6 +34,7 @@ final class EpisodeViewController: UIViewController {
     }
 
     private func configureEpisodeView() {
+        let episode = viewModel.fetchEpisode()
         episodeView.configureView(episode)
     }
 
@@ -57,8 +58,8 @@ final class EpisodeViewController: UIViewController {
 }
 
 extension EpisodeViewController: EpisodeViewProtocolDelegate {
-    func setupPlayerAudio(item: EpisodeModel) {
-        guard let url = URL(string: item.link) else { return }
+    func setupPlayerAudio(episode: EpisodeModel) {
+        guard let url = URL(string: episode.link) else { return }
         player = AVPlayer(url: url)
     }
 
@@ -79,6 +80,7 @@ extension EpisodeViewController: EpisodeViewProtocolDelegate {
     }
 
     func startAudio() {
+        let episode = viewModel.fetchEpisode()
         guard let url = URL(string: episode.link) else { return }
         //activateSession()
         let playerItem: AVPlayerItem = AVPlayerItem(url: url)

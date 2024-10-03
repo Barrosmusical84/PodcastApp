@@ -1,33 +1,10 @@
 import UIKit
 
-protocol DetailViewModelProtocol {
-   func fetchPodcast() -> PodcastModel
-}
+final class PodcastViewController: UIViewController {
 
-final class DetailViewModel: DetailViewModelProtocol {
-    private let podcast: PodcastModel
-    private let coordinator: DetailCoordinator
+    private let viewModel: PodcastModelProtocol
     
-    init(podcast: PodcastModel, coordinator: DetailCoordinator) {
-        self.podcast = podcast
-        self.coordinator = coordinator
-    }
-    
-    func fetchPodcast() -> PodcastModel {
-        return podcast
-    }
-    
-    func didSelectEpisode(_ episode: EpisodeModel) {
-        coordinator.openEpisode(episode)
-    }
-}
-
-
-final class DetailViewController: UIViewController {
-
-    private let viewModel: DetailViewModelProtocol
-    
-    init(viewModel: DetailViewModelProtocol) {
+    init(viewModel: PodcastModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -61,21 +38,21 @@ final class DetailViewController: UIViewController {
     }
 }
 
-extension DetailViewController: DetailViewProtocol {
+extension PodcastViewController: DetailViewProtocol {
     func didSelectEpisodeButton(selectedEpisode: EpisodeModel) {
-        let episodeViewController = EpisodeViewController(episode: selectedEpisode)
+        let episodeViewController = EpisodeViewController(viewModel: selectedEpisode)
         navigationController?.pushViewController(episodeViewController, animated: true)
     }
     
     func didTapEpisodeButton() {
         let podcast = viewModel.fetchPodcast()
         guard let item = podcast.episodes.first else { return }
-        let episodeViewController = EpisodeViewController(episode: item)
+        let episodeViewController = EpisodeViewController(viewModel: item)
         navigationController?.pushViewController(episodeViewController, animated: true)
     }
 }
 
-extension DetailViewController: ViewCode {
+extension PodcastViewController: ViewCode {
     func buildViewHierarchy() {
         view.addSubview(activityIndicator)
     }

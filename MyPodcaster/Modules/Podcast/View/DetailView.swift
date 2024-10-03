@@ -60,7 +60,7 @@ final class DetailView: UIView {
         button.setImage(image, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.setTitleColor(.white, for: .normal)
-        button.setTitle("  Último Episódio", for: .normal)
+        button.setTitle(Constants.PodcastView.lastestEpisodeButton.localized, for: .normal)
         button.backgroundColor = .black
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(didTapEpisodeButton), for: .touchUpInside)

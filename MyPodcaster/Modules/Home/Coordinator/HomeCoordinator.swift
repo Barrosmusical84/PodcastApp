@@ -10,8 +10,8 @@ final class HomeCoordinator: HomeCoordinatorProtocol {
 
     func openPodcastDetail(_ podcast: PodcastModel) {
         let coordinator = DetailCoordinator()
-        let viewModel = DetailViewModel(podcast: podcast, coordinator: coordinator)
-        let detailViewController = DetailViewController(viewModel: viewModel)
+        let viewModel = PodcastViewModel(podcast: podcast, coordinator: coordinator)
+        let detailViewController = PodcastViewController(viewModel: viewModel)
         coordinator.detailViewController = detailViewController
         homeViewController?.navigationController?.pushViewController(detailViewController, animated: true)
     }
