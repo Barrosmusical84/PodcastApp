@@ -1,6 +1,6 @@
 import UIKit
 
-class ImageLoader {
+final class ImageLoader {
     static let shared = ImageLoader()
     private let cache = NSCache<NSString, UIImage>()
 

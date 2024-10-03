@@ -6,10 +6,10 @@ protocol HomeViewDelegate: AnyObject {
 
 final class HomeView: UIView {
 
-    var podcasts: [PodcastModel] = []
+    private var podcasts: [PodcastModel] = []
     weak var delegate: HomeViewDelegate?
     
-    public lazy var collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
         let collection = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
@@ -53,7 +53,11 @@ final class HomeView: UIView {
         super.init(frame: .zero)
         setupView()
     }
-    
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     func show(podcast: PodcastModel) {
         if let index = self.podcasts.firstIndex(where: { $0.url == podcast.url }) {
             self.podcasts[index] = podcast
@@ -80,13 +84,10 @@ final class HomeView: UIView {
     private func registerCell() {
         collectionView.register(HomeCell.self, forCellWithReuseIdentifier: HomeCell.identifier)
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
 extension HomeView: UICollectionViewDelegate, UICollectionViewDataSource {
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         podcasts.count
     }
@@ -120,6 +121,7 @@ extension HomeView: UICollectionViewDelegateFlowLayout {
 }
 
 extension HomeView: ViewCode {
+
     func buildViewHierarchy() {
         addSubview(titleLabel)
         addSubview(imageView)

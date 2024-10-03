@@ -26,7 +26,6 @@ final class EpisodeView: UIView {
         headStackView.axis = .horizontal
         headStackView.spacing = 8
         headStackView.alignment = .center
-        headStackView.distribution = .fillProportionally
         return headStackView
     }()
     
@@ -155,12 +154,8 @@ final class EpisodeView: UIView {
     
     internal func setupImageView(_ episode: EpisodeModel) {
         if let imageURL = episode.imageURL {
-            DispatchQueue.global().async {
-                if let data = try? Data(contentsOf: imageURL), let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self.imageView.image = image
-                    }
-                }
+            ImageLoader.shared.loadImage(from: imageURL.absoluteString) { [weak self] image in
+                self?.imageView.image = image
             }
         } else {
             imageView.image = UIImage(named: "defaultImage")
@@ -213,8 +208,5 @@ extension EpisodeView: ViewCode {
             playPauseButton.heightAnchor.constraint(equalToConstant: 40),
             nextButton.heightAnchor.constraint(equalToConstant: 40),
         ])
-    }
-    
-    func setupAdditionalConfiguration() {
-    }
+    }    
 }

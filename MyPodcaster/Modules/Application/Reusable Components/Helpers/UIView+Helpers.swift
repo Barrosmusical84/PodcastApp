@@ -2,6 +2,10 @@ import UIKit
 
 extension UIView {
 
+    static var identifier: String {
+        String(describing: Self.self)
+    }
+
     func addSeparatorView(color: UIColor = .gray, height: CGFloat = 1.0) -> UIView {
         let separatorView = UIView()
         separatorView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,9 +40,5 @@ extension UIView {
     func removeActivityIndicator() {
         let activityIndicator = subviews.first(where: { $0 is UIActivityIndicatorView }) as? UIActivityIndicatorView
         activityIndicator?.removeFromSuperview()
-    }
-
-    static var identifier: String {
-        String(describing: Self.self)
     }
 }

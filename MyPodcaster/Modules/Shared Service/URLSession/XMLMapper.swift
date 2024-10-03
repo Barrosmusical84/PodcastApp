@@ -132,8 +132,4 @@ extension PodcastMapper: XMLParserDelegate {
     func isPodcastModelNil() -> Bool {
         return podcastModel.title == nil && podcastModel.image == nil && podcastModel.episodes.isEmpty
     }
-
-    func parser(_ parser: XMLParser, parseErrorOccurred parseError: any Error) {
-        print()
-    }
 }

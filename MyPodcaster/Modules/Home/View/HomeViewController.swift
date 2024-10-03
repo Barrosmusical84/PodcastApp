@@ -2,7 +2,9 @@ import UIKit
 
 final class HomeViewController: UIViewController {
 
-    private let viewModel: HomeViewModel
+    //MARK: - Private Variables
+
+    private let viewModel: HomeViewModelProtocol
 
     private lazy var homeView: HomeView = {
         let homeView = HomeView()
@@ -10,21 +12,15 @@ final class HomeViewController: UIViewController {
         return homeView
     }()
 
-    var urls = [
-        "https://feeds.megaphone.fm/la-cotorrisa",
-        "https://anchor.fm/s/7a186bc/podcast/rss",
-        "http://feeds.feedburner.com/GeekNights",
-    ]
+    //MARK: - ViewController Life Cycle
 
-    var index = 0
-
-    init(viewModel: HomeViewModel) {
+    init(viewModel: HomeViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        return nil
     }
 
     override func loadView() {
@@ -33,43 +29,13 @@ final class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavegation()
+        setupNavigation()
         viewModel.fetchStoredPodcasts()
     }
-    
-    func setupNavegation() {
-        let rightButton = UIBarButtonItem(title: Constants.Navigation.rightButton.localized, style: .plain, target: self, action: #selector(didTapRightButton))
-        navigationItem.rightBarButtonItem = rightButton
-        appearanceNavegation()
-    }
-    
-    @objc func didTapRightButton() {
-        let url = urls[index]
-        self.fetch(url: url)
-        index = index + 1
-        return
-        let alertInsertURL = UIAlertController(title: Constants.Alert.alertInsertURL.localized, message: nil, preferredStyle: .alert)
-        alertInsertURL.addTextField { textField in
-            textField.placeholder = Constants.Alert.alertInsertURLPlaceholder.localized
-            textField.keyboardType = .URL
-        }
-        let cancelAction = UIAlertAction(title: Constants.Alert.cancelAction.localized, style: .cancel, handler: nil)
-        let followAction = UIAlertAction(title: Constants.Alert.followAction.localized, style: .default) { [weak alertInsertURL] _ in
-            if let urlText = alertInsertURL?.textFields?.first?.text, !urlText.isEmpty {
-                print("\(Constants.Alert.followAction.localized) \(urlText)")
-                self.fetch(url: urlText)
-            }
-        }
-        alertInsertURL.addAction(cancelAction)
-        alertInsertURL.addAction(followAction)
-        present(alertInsertURL, animated: true, completion: nil)
-    }
-
-    func fetch(url: String) {
-        homeView.startLoading()
-        viewModel.fetchPodcast(url: url)
-    }
 }
+
+
+//MARK: - HomeViewModelDelegate
 
 extension HomeViewController: HomeViewModelDelegate {
     
@@ -84,18 +50,33 @@ extension HomeViewController: HomeViewModelDelegate {
 
     func showServerError() {
         self.homeView.stopLoading()
-        let alert = UIAlertController(title: Constants.Alert.alertError.localized, message: Constants.Alert.alertErrorMessage.localized, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        let alert = UIAlertController(title: Constants.Alert.alertError.localized,
+                                      message: Constants.Alert.alertErrorMessage.localized,
+                                      preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "OK",
+                                      style: .default,
+                                      handler: nil))
+
         self.present(alert, animated: true, completion: nil)
     }
 
     func showErrorForInvalidURL() {
         self.homeView.stopLoading()
-        let alert = UIAlertController(title: Constants.Alert.alertError.localized, message: Constants.Alert.alertInvalidURL.localized, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        
+        let alert = UIAlertController(title: Constants.Alert.alertError.localized,
+                                      message: Constants.Alert.alertInvalidURL.localized,
+                                      preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK",
+                                      style: .default,
+                                      handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
 }
+
+//MARK: - HomeViewDelegate
 
 extension HomeViewController: HomeViewDelegate {
 
@@ -104,15 +85,49 @@ extension HomeViewController: HomeViewDelegate {
     }
 }
 
+//MARK: - Private Helpers
+
 extension HomeViewController {
 
-    func appearanceNavegation() {
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = UIColor.customBackground
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.buttonAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.white]
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.tintColor = .white 
+    private func setupNavigation() {
+        let rightButton = UIBarButtonItem(title: Constants.Navigation.rightButton.localized, 
+                                          style: .plain,
+                                          target: self,
+                                          action: #selector(didTapRightButton))
+        
+        navigationItem.rightBarButtonItem = rightButton
+        appearanceNavegation()
+    }
+
+    @objc private func didTapRightButton() {
+        let alertInsertURL = UIAlertController(title: Constants.Alert.alertInsertURL.localized, 
+                                               message: nil,
+                                               preferredStyle: .alert)
+
+        alertInsertURL.addTextField { textField in
+            textField.placeholder = Constants.Alert.alertInsertURLPlaceholder.localized
+            textField.keyboardType = .URL
+        }
+
+        let cancelAction = UIAlertAction(title: Constants.Alert.cancelAction.localized, 
+                                         style: .cancel,
+                                         handler: nil)
+       
+        let followAction = UIAlertAction(title: Constants.Alert.followAction.localized,
+                                         style: .default) { [weak alertInsertURL] _ in
+            if let urlText = alertInsertURL?.textFields?.first?.text, !urlText.isEmpty {
+                self.fetch(url: urlText)
+            }
+        }
+
+        alertInsertURL.addAction(cancelAction)
+        alertInsertURL.addAction(followAction)
+
+        present(alertInsertURL, animated: true, completion: nil)
+    }
+
+    private func fetch(url: String) {
+        homeView.startLoading()
+        viewModel.fetchPodcast(url: url)
     }
 }

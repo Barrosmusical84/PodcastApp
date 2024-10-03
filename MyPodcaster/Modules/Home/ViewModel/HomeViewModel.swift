@@ -1,5 +1,11 @@
 import Foundation
 
+protocol HomeViewModelProtocol {
+    func fetchStoredPodcasts()
+    func fetchPodcast(url: String)
+    func didSelectPodcast(_ podcast: PodcastModel)
+}
+
 protocol HomeViewModelDelegate: AnyObject {
     func show(podcast: PodcastModel)
     func showStoredPodcasts(podcast: [PodcastModel])
@@ -7,7 +13,7 @@ protocol HomeViewModelDelegate: AnyObject {
     func showErrorForInvalidURL()
 }
 
-final class HomeViewModel {
+final class HomeViewModel: HomeViewModelProtocol {
 
     private let userDefaultsManager: UserDefaultsManagerProtocol
     private let sessionManager: URLSessionManagerProtocol
@@ -51,7 +57,7 @@ extension HomeViewModel: URLSessionManagerDelegate {
     
 
     func didFetchPodcast(podcast: PodcastModel) {
-        //userDefaultsManager.save(podcast: podcast)
+        userDefaultsManager.save(podcast: podcast)
         DispatchQueue.main.async {
             self.delegate?.show(podcast: podcast)
         }
