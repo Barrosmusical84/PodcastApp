@@ -18,8 +18,8 @@ Cada módulo segue uma estrutura clara para garantir manutenibilidade e separaç
 ## Requisitos do Projeto:
 
 - MacOS Sonoma 14.3.1
-- iOS 17+
-- Swift 5+
+- iOS 17
+- Swift 5
 - Xcode 15.0.1
 
 ## Sobre o Projeto:
@@ -27,7 +27,7 @@ Cada módulo segue uma estrutura clara para garantir manutenibilidade e separaç
 ### Tela 1 - Fonte de RSS (Home)
 - A primeira tela consiste em um formulário simples onde o usuário pode inserir uma URL de um feed RSS de um podcast público. Ao adicional outra URL o usuário consegue ver as que foram carregadas anteriormente exibindo sempre da última a primeira.
 - Armazenamento de Cache:
-  - Implementado o cache para o feed RSS e para as imagens dos podcasts, com a opção de limpar o cache diretamente pela interface do usuário.
+  - Implementado o cache para o feed RSS e para as imagens dos podcasts.
 - Tratamento de Erros:
   - O tratamento de erros é feito de maneira robusta para garantir que o usuário seja informado de problemas de conexão e URLs inválidas.
 
@@ -55,13 +55,14 @@ Todas as telas são 100% implementadas em ViewCode, sem o uso de Storyboards, se
 Estou utilizando o padrão de design Factory, que encapsula a lógica de criação de objetos, promovendo flexibilidade e desacoplamento no código ao delegar a subclasses a decisão de qual classe instanciar.
 
 Desenvolvi um cache de imagem utilizando a classe Image Load, otimizando o carregamento e reutilização de imagens no projeto.
-O armazenando dos podcasts estão sendo feitos usando a classe User Defaults.
+O armazenando dos podcasts estão sendo feitos usando a API UserDefaults.
 
 ## Débito técnicos:
--  Na tela 3 ficou faltando:
-  - Se tive mais tempo iria implementar as ações nos botões para pular para o próximo episódio ou voltar ao episódio anterior e o tempo de progresso inicial e final.
-  - Ação na Barra de progresso do episódio
+  - Se tivesse mais tempo iria implementar as ações nos botões do player de áudio,  para pular para o próximo episódio ou voltar ao episódio anterior e o tempo de progresso inicial e final.
+  - Tratamentos de erros do AVPlayer.
+  - Ação na Barra de progresso do episódio.
   - Estudar mais a documentação pra entender melhor o AVPlayer
+  - Implemenetar testes unitários das outras classes.
     
 
 ## Considerações Finais
